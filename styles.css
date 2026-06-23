@@ -253,6 +253,32 @@ h1 {
   outline: none;
 }
 
+.rate-row {
+  display: grid;
+  grid-template-columns: 1fr 44px;
+  gap: 8px;
+}
+
+.rate-button {
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--jade);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.rate-button.loading {
+  animation: spin 900ms linear infinite;
+}
+
+.rate-status {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
 .field input:focus,
 .range-field input:focus,
 .task input:focus-visible,
@@ -469,6 +495,12 @@ input[type="range"] {
 .toast.show {
   transform: translateY(0);
   opacity: 1;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 980px) {

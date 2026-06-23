@@ -70,7 +70,11 @@
 
           <label class="field">
             <span>Курс ¥ к ₽</span>
-            <input id="yuanRate" type="number" min="1" step="0.1" value="13" />
+            <div class="rate-row">
+              <input id="yuanRate" type="number" min="1" step="0.1" value="13" />
+              <button class="rate-button" type="button" id="refreshRate" aria-label="Обновить курс">↻</button>
+            </div>
+            <small class="rate-status" id="rateStatus">курс можно обновить автоматически</small>
           </label>
 
           <label class="range-field">

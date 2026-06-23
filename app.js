@@ -13,6 +13,8 @@ const els = {
   savedYuan: document.querySelector("#savedYuan"),
   monthsLeft: document.querySelector("#monthsLeft"),
   yuanRate: document.querySelector("#yuanRate"),
+  refreshRate: document.querySelector("#refreshRate"),
+  rateStatus: document.querySelector("#rateStatus"),
   monthlyIncome: document.querySelector("#monthlyIncome"),
   incomeDisplay: document.querySelector("#incomeDisplay"),
   targetDisplay: document.querySelector("#targetDisplay"),
@@ -115,6 +117,35 @@ function render() {
   renderDoneCount();
 }
 
+async function fetchLatestRate({ silent = false } = {}) {
+  const apiUrl = "https://api.frankfurter.dev/v2/rates?base=CNY&quotes=RUB";
+  els.refreshRate.classList.add("loading");
+  els.refreshRate.disabled = true;
+  els.rateStatus.textContent = "обновляю курс...";
+
+  try {
+    const response = await fetch(apiUrl, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+    const record = Array.isArray(data) ? data[0] : data;
+    const rate = Number(record?.rate ?? record?.rates?.RUB);
+    if (!Number.isFinite(rate) || rate <= 0) throw new Error("bad rate");
+
+    state.yuanRate = Number(rate.toFixed(2));
+    els.yuanRate.value = state.yuanRate;
+    els.rateStatus.textContent = `авто-курс Frankfurter на ${record.date}: 1 ¥ = ${state.yuanRate} ₽`;
+    render();
+    if (!silent) showToast("Курс обновлён");
+  } catch {
+    els.rateStatus.textContent = "не получилось обновить, оставил ручной курс";
+    if (!silent) showToast("Курс не обновился");
+  } finally {
+    els.refreshRate.classList.remove("loading");
+    els.refreshRate.disabled = false;
+  }
+}
+
 function renderPlanRows() {
   els.monthPlan.innerHTML = planRows
     .map(([week, title, note]) => `
@@ -201,7 +232,9 @@ document.querySelectorAll(".segment").forEach((button) => {
 
 els.savePlan.addEventListener("click", saveState);
 els.copyPitch.addEventListener("click", copyPitch);
+els.refreshRate.addEventListener("click", () => fetchLatestRate());
 
 renderPlanRows();
 loadState();
 render();
+fetchLatestRate({ silent: true });
