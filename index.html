@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>План на Китай</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">中</span>
+          <div>
+            <h1>План на Китай</h1>
+            <p>Цель, темп и первые заказы в одном месте.</p>
+          </div>
+        </div>
+        <div class="top-actions" aria-label="Настройки отображения">
+          <div class="segmented" role="group" aria-label="Валюта">
+            <button class="segment active" type="button" data-currency="yuan">¥</button>
+            <button class="segment" type="button" data-currency="rub">₽</button>
+          </div>
+          <button class="save-button" type="button" id="savePlan">
+            <span aria-hidden="true">✓</span>
+            Сохранить план
+          </button>
+        </div>
+      </header>
+
+      <section class="summary-grid" aria-label="Сводка плана">
+        <article class="metric-card goal-card">
+          <span class="label">Цель</span>
+          <strong id="targetDisplay">55 000 ¥</strong>
+          <small id="targetRubDisplay">примерно 715 000 ₽</small>
+        </article>
+        <article class="metric-card">
+          <span class="label">До сентября</span>
+          <strong id="monthsDisplay">24 месяца</strong>
+          <small>можно менять под свой срок</small>
+        </article>
+        <article class="metric-card accent">
+          <span class="label">Нужно в месяц</span>
+          <strong id="monthlyNeeded">2 292 ¥</strong>
+          <small id="monthlyNeededRub">29 792 ₽</small>
+        </article>
+      </section>
+
+      <section class="workbench">
+        <aside class="panel form-panel">
+          <div class="panel-title">
+            <h2>Настройки цели</h2>
+            <span>живой расчёт</span>
+          </div>
+
+          <label class="field">
+            <span>Цель в юанях</span>
+            <input id="targetYuan" type="number" min="1000" step="500" value="55000" />
+          </label>
+
+          <label class="field">
+            <span>Уже есть</span>
+            <input id="savedYuan" type="number" min="0" step="100" value="0" />
+          </label>
+
+          <label class="field">
+            <span>Месяцев осталось</span>
+            <input id="monthsLeft" type="number" min="1" max="60" value="24" />
+          </label>
+
+          <label class="field">
+            <span>Курс ¥ к ₽</span>
+            <input id="yuanRate" type="number" min="1" step="0.1" value="13" />
+          </label>
+
+          <label class="range-field">
+            <span>Доход с вайбкодинга в месяц</span>
+            <strong id="incomeDisplay">15 000 ₽</strong>
+            <input id="monthlyIncome" type="range" min="0" max="80000" step="1000" value="15000" />
+          </label>
+        </aside>
+
+        <section class="panel progress-panel" aria-label="Мой прогресс">
+          <div class="panel-title">
+            <h2>Мой прогресс</h2>
+            <span id="paceStatus">надо ускориться</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-ring" id="progressRing">
+              <div>
+                <strong id="progressPercent">0%</strong>
+                <span>накоплено</span>
+              </div>
+            </div>
+            <div class="progress-copy">
+              <p id="remainingText">Осталось накопить 55 000 ¥.</p>
+              <p id="incomeText">При 15 000 ₽ в месяц это 1 154 ¥.</p>
+            </div>
+          </div>
+
+          <div class="ticket-strip" aria-label="План месяца">
+            <div>
+              <span>Минимум</span>
+              <strong id="minimumRub">29 792 ₽</strong>
+            </div>
+            <div>
+              <span>Реально сейчас</span>
+              <strong id="currentRub">15 000 ₽</strong>
+            </div>
+            <div>
+              <span>Разрыв</span>
+              <strong id="gapRub">14 792 ₽</strong>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel tasks-panel">
+          <div class="panel-title">
+            <h2>Идеи для первых заказов</h2>
+            <span>0-30 дней</span>
+          </div>
+          <div class="task-list">
+            <label class="task">
+              <input type="checkbox" data-task="site" />
+              <span>
+                <strong>Сайт</strong>
+                лендинг для репетитора или мастера
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="bot" />
+              <span>
+                <strong>Telegram-бот</strong>
+                запись, прайс, заявки в личку
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="calc" />
+              <span>
+                <strong>Калькулятор</strong>
+                доставка, курс, накопления
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="portfolio" />
+              <span>
+                <strong>Портфолио</strong>
+                одна страница с тремя кейсами
+              </span>
+            </label>
+          </div>
+        </aside>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel plan-panel">
+          <div class="panel-title">
+            <h2>План на ближайший месяц</h2>
+            <span id="doneCount">0 / 4 готово</span>
+          </div>
+          <div class="month-plan" id="monthPlan"></div>
+        </article>
+
+        <article class="panel pitch-panel">
+          <div class="panel-title">
+            <h2>Сообщение клиенту</h2>
+            <span>можно отправлять</span>
+          </div>
+          <blockquote id="clientPitch">
+            Привет! Я делаю простые сайты и Telegram-ботов для записи и заявок. Могу собрать демо под ваш бизнес, а если понравится — доделаю за небольшую оплату.
+          </blockquote>
+          <button class="copy-button" type="button" id="copyPitch">Скопировать</button>
+        </article>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">Сохранено</div>
+    <script src="app.js"></script>
+  </body>
+</html>
