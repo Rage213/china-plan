@@ -5,50 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="StratiX VPN panel preview: protected 3AX-UI access console with AWG, WG, VLESS and Telegram bot automation."
+      content="StratiX VPN panel preview: private 3AX-UI access screen."
     />
     <title>StratiX VPN Panel Preview</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
       :root {
         color-scheme: light;
-        --bg: #edf3f8;
-        --bg-2: #dfe9f1;
-        --surface: rgba(255, 255, 255, 0.86);
-        --surface-strong: #ffffff;
-        --surface-muted: rgba(26, 42, 60, 0.06);
-        --line: rgba(24, 41, 58, 0.12);
-        --line-strong: rgba(24, 41, 58, 0.18);
-        --text: #0f2031;
-        --muted: rgba(15, 32, 49, 0.68);
-        --dim: rgba(15, 32, 49, 0.48);
-        --accent: #087c70;
-        --accent-strong: #04695f;
-        --violet: #6266d9;
-        --gold: #bf8431;
-        --danger: #d84f59;
-        --shadow: 0 30px 90px rgba(21, 43, 62, 0.16);
-        --soft-shadow: 0 16px 48px rgba(21, 43, 62, 0.11);
+        --bg: #edf4f8;
+        --bg-2: #dfeaf1;
+        --surface: rgba(255, 255, 255, 0.92);
+        --surface-muted: rgba(19, 43, 64, 0.06);
+        --line: rgba(19, 43, 64, 0.14);
+        --line-strong: rgba(19, 43, 64, 0.2);
+        --text: #102033;
+        --muted: rgba(16, 32, 51, 0.66);
+        --dim: rgba(16, 32, 51, 0.42);
+        --accent: #0a8678;
+        --accent-strong: #056c61;
+        --focus: rgba(10, 134, 120, 0.16);
+        --shadow: 0 34px 95px rgba(18, 43, 64, 0.18);
+        --soft-shadow: 0 14px 42px rgba(18, 43, 64, 0.12);
         --radius: 8px;
-      }
-
-      body[data-theme="dark"] {
-        color-scheme: dark;
-        --bg: #121b28;
-        --bg-2: #1d2938;
-        --surface: rgba(27, 39, 55, 0.88);
-        --surface-strong: #202d3d;
-        --surface-muted: rgba(255, 255, 255, 0.06);
-        --line: rgba(255, 255, 255, 0.12);
-        --line-strong: rgba(255, 255, 255, 0.18);
-        --text: #f4f7fb;
-        --muted: rgba(244, 247, 251, 0.68);
-        --dim: rgba(244, 247, 251, 0.48);
-        --accent: #14a58f;
-        --accent-strong: #0e8e7c;
-        --shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
-        --soft-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
       }
 
       * {
@@ -60,16 +39,12 @@
         min-height: 100vh;
         overflow-x: hidden;
         background:
-          linear-gradient(rgba(15, 32, 49, 0.045) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(15, 32, 49, 0.045) 1px, transparent 1px),
-          radial-gradient(circle at 84% 22%, rgba(98, 102, 217, 0.17), transparent 32%),
-          radial-gradient(circle at 12% 86%, rgba(8, 124, 112, 0.16), transparent 30%),
+          linear-gradient(rgba(16, 32, 51, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(16, 32, 51, 0.04) 1px, transparent 1px),
           linear-gradient(180deg, var(--bg), var(--bg-2));
         background-size:
           48px 48px,
           48px 48px,
-          auto,
-          auto,
           auto;
         color: var(--text);
         font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -86,35 +61,16 @@
       }
 
       .page {
-        position: relative;
-        isolation: isolate;
         min-height: 100vh;
-      }
-
-      .page::after {
-        position: fixed;
-        right: -8vw;
-        bottom: -25vh;
-        left: -8vw;
-        z-index: 0;
-        height: 34vh;
-        content: "";
-        background:
-          linear-gradient(170deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.04)),
-          linear-gradient(7deg, transparent 0 43%, rgba(8, 124, 112, 0.16) 44% 49%, transparent 50%),
-          linear-gradient(-6deg, transparent 0 33%, rgba(98, 102, 217, 0.15) 34% 39%, transparent 40%);
-        transform: skewY(-3deg);
       }
 
       .shell {
-        position: relative;
-        z-index: 1;
         display: flex;
         flex-direction: column;
-        width: min(1220px, calc(100vw - 56px));
+        width: min(1120px, calc(100vw - 48px));
         min-height: 100vh;
         margin: 0 auto;
-        padding: 30px 0 42px;
+        padding: 28px 0 44px;
       }
 
       .nav {
@@ -122,7 +78,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 18px;
-        min-height: 46px;
+        min-height: 42px;
       }
 
       .brand {
@@ -135,166 +91,60 @@
         text-decoration: none;
       }
 
-      .brand-mark {
+      .brand-mark,
+      .card-mark {
         display: grid;
-        width: 36px;
-        height: 36px;
         place-items: center;
         border-radius: var(--radius);
         background: var(--text);
-        color: var(--bg);
-        font-size: 12px;
+        color: #fff;
         font-weight: 800;
         box-shadow: var(--soft-shadow);
       }
 
-      .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 12px;
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        font-size: 12px;
       }
 
-      .nav-links {
+      .language-controls {
         display: flex;
         align-items: center;
         gap: 8px;
       }
 
-      .nav-link,
-      .control {
+      .language-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 36px;
-        padding: 0 13px;
+        min-width: 44px;
+        min-height: 34px;
+        padding: 0 12px;
         border: 1px solid var(--line);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.34);
+        background: rgba(255, 255, 255, 0.58);
         color: var(--muted);
-        font-size: 13px;
-        font-weight: 700;
-        text-decoration: none;
-        white-space: nowrap;
+        font-size: 12px;
+        font-weight: 800;
       }
 
-      body[data-theme="dark"] .nav-link,
-      body[data-theme="dark"] .control {
-        background: rgba(255, 255, 255, 0.04);
-      }
-
-      .controls {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .control.is-active {
-        border-color: rgba(8, 124, 112, 0.42);
-        background: rgba(8, 124, 112, 0.12);
+      .language-button.is-active {
+        border-color: rgba(10, 134, 120, 0.42);
+        background: rgba(10, 134, 120, 0.12);
         color: var(--accent-strong);
       }
 
-      body[data-theme="dark"] .control.is-active {
-        color: #dffcf8;
-      }
-
-      .hero {
+      .preview-stage {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(360px, 440px);
-        align-items: center;
-        gap: clamp(48px, 7vw, 104px);
         flex: 1;
-        padding: 54px 0 30px;
-      }
-
-      .copy {
-        max-width: 690px;
-      }
-
-      h1 {
-        max-width: 650px;
-        margin: 0;
-        color: var(--text);
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(56px, 6.2vw, 86px);
-        font-weight: 400;
-        line-height: 0.98;
-        letter-spacing: 0;
-      }
-
-      h1 em {
-        display: block;
-        margin-top: 8px;
-        color: var(--violet);
-        font-style: italic;
-      }
-
-      .subtitle {
-        max-width: 600px;
-        margin: 28px 0 0;
-        color: var(--muted);
-        font-size: 18px;
-        line-height: 1.72;
-      }
-
-      .access-list {
-        display: grid;
-        gap: 12px;
-        max-width: 590px;
-        margin-top: 34px;
-        padding-left: 18px;
-        border-left: 1px solid rgba(8, 124, 112, 0.34);
-      }
-
-      .access-row {
-        display: grid;
-        grid-template-columns: 126px minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 14px;
-        min-height: 48px;
-      }
-
-      .access-kicker {
-        color: var(--dim);
-        font-size: 12px;
-        font-weight: 800;
-        text-transform: uppercase;
-      }
-
-      .access-name {
-        overflow: hidden;
-        color: var(--text);
-        font-size: 14px;
-        font-weight: 700;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      .access-state {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 700;
-        white-space: nowrap;
-      }
-
-      .access-state::before {
-        width: 7px;
-        height: 7px;
-        border-radius: 999px;
-        background: var(--accent);
-        content: "";
-      }
-
-      .panel-stack {
-        display: grid;
-        gap: 16px;
+        place-items: center;
+        padding: clamp(54px, 11vh, 118px) 0 30px;
       }
 
       .login-card {
         position: relative;
+        width: min(100%, 430px);
         padding: 34px;
         border: 1px solid var(--line-strong);
         border-radius: var(--radius);
@@ -311,9 +161,9 @@
         width: 38px;
         height: 38px;
         place-items: center;
-        border: 1px solid rgba(8, 124, 112, 0.38);
+        border: 1px solid rgba(10, 134, 120, 0.36);
         border-radius: 999px;
-        background: rgba(8, 124, 112, 0.10);
+        background: rgba(10, 134, 120, 0.1);
         color: var(--accent);
       }
 
@@ -323,15 +173,9 @@
       }
 
       .card-mark {
-        display: grid;
         width: 46px;
         height: 46px;
-        place-items: center;
-        border-radius: var(--radius);
-        background: var(--text);
-        color: var(--bg);
         font-size: 13px;
-        font-weight: 800;
       }
 
       .card-title {
@@ -356,9 +200,10 @@
 
       .field {
         position: relative;
+        display: block;
       }
 
-      .field svg {
+      .field > svg {
         position: absolute;
         top: 50%;
         left: 17px;
@@ -376,6 +221,7 @@
         border: 1px solid var(--line);
         border-radius: var(--radius);
         outline: none;
+        appearance: none;
         background: var(--surface-muted);
         color: var(--text);
         font-size: 15px;
@@ -389,8 +235,8 @@
       }
 
       .field input:focus {
-        border-color: rgba(8, 124, 112, 0.62);
-        box-shadow: 0 0 0 3px rgba(8, 124, 112, 0.10);
+        border-color: rgba(10, 134, 120, 0.58);
+        box-shadow: 0 0 0 3px var(--focus);
       }
 
       .eye-button {
@@ -409,8 +255,8 @@
       }
 
       .eye-button svg {
-        position: static;
-        transform: none;
+        width: 18px;
+        height: 18px;
       }
 
       .submit {
@@ -426,105 +272,15 @@
         color: #fff;
         font-size: 15px;
         font-weight: 800;
-        box-shadow: 0 16px 34px rgba(8, 124, 112, 0.22);
+        box-shadow: 0 16px 34px rgba(10, 134, 120, 0.22);
       }
 
       .submit:focus-visible,
       .settings-button:focus-visible,
-      .control:focus-visible {
-        outline: 3px solid rgba(98, 102, 217, 0.32);
+      .language-button:focus-visible,
+      .eye-button:focus-visible {
+        outline: 3px solid var(--focus);
         outline-offset: 2px;
-      }
-
-      .note {
-        color: var(--dim);
-        font-size: 13px;
-        line-height: 1.55;
-      }
-
-      .note strong {
-        color: var(--muted);
-        font-weight: 800;
-      }
-
-      .status-card {
-        display: grid;
-        gap: 14px;
-        padding: 18px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.44);
-        box-shadow: var(--soft-shadow);
-      }
-
-      body[data-theme="dark"] .status-card {
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      .status-head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-      }
-
-      .status-title {
-        color: var(--text);
-        font-size: 14px;
-        font-weight: 800;
-      }
-
-      .status-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        min-height: 28px;
-        padding: 0 10px;
-        border-radius: 999px;
-        background: rgba(8, 124, 112, 0.12);
-        color: var(--accent-strong);
-        font-size: 12px;
-        font-weight: 800;
-      }
-
-      body[data-theme="dark"] .status-pill {
-        color: #e2fffb;
-      }
-
-      .status-pill::before {
-        width: 7px;
-        height: 7px;
-        border-radius: 999px;
-        background: var(--accent);
-        content: "";
-      }
-
-      .metrics {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-      }
-
-      .metric {
-        padding: 11px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--surface-muted);
-      }
-
-      .metric span {
-        display: block;
-        color: var(--dim);
-        font-size: 11px;
-        font-weight: 800;
-        text-transform: uppercase;
-      }
-
-      .metric strong {
-        display: block;
-        margin-top: 6px;
-        color: var(--text);
-        font-size: 16px;
       }
 
       .toast {
@@ -536,7 +292,7 @@
         padding: 13px 15px;
         border: 1px solid var(--line-strong);
         border-radius: var(--radius);
-        background: var(--surface-strong);
+        background: #fff;
         color: var(--text);
         box-shadow: var(--shadow);
         font-size: 14px;
@@ -554,78 +310,22 @@
         transform: translateY(0);
       }
 
-      @media (max-width: 960px) {
-        .shell {
-          width: min(720px, calc(100vw - 34px));
-          padding-top: 22px;
-        }
-
-        .nav {
-          align-items: flex-start;
-        }
-
-        .nav-links {
-          display: none;
-        }
-
-        .hero {
-          grid-template-columns: 1fr;
-          gap: 34px;
-          padding-top: 48px;
-        }
-
-        h1 {
-          font-size: clamp(48px, 12vw, 68px);
-        }
-      }
-
       @media (max-width: 560px) {
         .shell {
           width: min(100vw - 28px, 430px);
+          padding-top: 20px;
         }
 
         .brand {
           font-size: 19px;
         }
 
-        .controls {
-          gap: 6px;
-        }
-
-        .control {
-          min-height: 34px;
-          padding: 0 10px;
-          font-size: 12px;
-        }
-
-        .hero {
-          padding-top: 34px;
-        }
-
-        h1 {
-          font-size: 44px;
-        }
-
-        .subtitle {
-          font-size: 15px;
-        }
-
-        .access-list {
-          padding-left: 14px;
-        }
-
-        .access-row {
-          grid-template-columns: 1fr;
-          gap: 4px;
-          padding: 7px 0;
+        .preview-stage {
+          padding-top: 44px;
         }
 
         .login-card {
           padding: 24px;
-        }
-
-        .metrics {
-          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -639,141 +339,73 @@
             <span>StratiX VPN</span>
           </a>
 
-          <div class="nav-right">
-            <nav class="nav-links" aria-label="Panel sections">
-              <span class="nav-link" data-i18n="navAwg">AWG</span>
-              <span class="nav-link" data-i18n="navWg">WG</span>
-              <span class="nav-link" data-i18n="navBot">Telegram Bot</span>
-              <span class="nav-link" data-i18n="navAccess">Private access</span>
-            </nav>
-            <div class="controls" aria-label="Preview controls">
-              <button class="control is-active" type="button" data-language="ru">RU</button>
-              <button class="control" type="button" data-language="en">EN</button>
-              <button class="control" type="button" data-theme-toggle data-i18n="theme">Light</button>
-            </div>
+          <div class="language-controls" aria-label="Language">
+            <button class="language-button is-active" type="button" data-language="ru">RU</button>
+            <button class="language-button" type="button" data-language="en">EN</button>
           </div>
         </header>
 
-        <main class="hero">
-          <section class="copy">
-            <h1>
-              <span data-i18n="titleLine1">VPN-доступ,</span>
-              <em data-i18n="titleLine2">который выдается сам</em>
-            </h1>
-            <p class="subtitle" data-i18n="subtitle">
-              Закрытая панель для AWG/WG-сервера, клиентских ключей и Telegram-бота.
-              Админка остается приватной, а пользователи получают конфиги и QR-коды без ручной выдачи.
-            </p>
+        <main class="preview-stage">
+          <section class="login-card" aria-label="Login preview">
+            <button class="settings-button" type="button" aria-label="Settings" data-demo-button>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                />
+                <path
+                  d="M19.2 13.2v-2.4l-2.1-.4a6.7 6.7 0 0 0-.8-1.9l1.2-1.8-1.7-1.7-1.8 1.2c-.6-.3-1.2-.6-1.9-.8L11.7 3H9.3l-.4 2.1c-.7.2-1.3.4-1.9.8L5.2 4.7 3.5 6.4l1.2 1.8c-.3.6-.6 1.2-.8 1.9l-2.1.4v2.4l2.1.4c.2.7.4 1.3.8 1.9L3.5 17l1.7 1.7 1.8-1.2c.6.3 1.2.6 1.9.8l.4 2.1h2.4l.4-2.1c.7-.2 1.3-.4 1.9-.8l1.8 1.2 1.7-1.7-1.2-1.8c.3-.6.6-1.2.8-1.9l2.1-.1Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
 
-            <div class="access-list" aria-label="System status">
-              <div class="access-row">
-                <span class="access-kicker" data-i18n="panelLabel">Панель</span>
-                <span class="access-name" data-i18n="panelName">3AX-UI через SSH-туннель</span>
-                <span class="access-state" data-i18n="privateState">приватно</span>
-              </div>
-              <div class="access-row">
-                <span class="access-kicker" data-i18n="tunnelLabel">Туннель</span>
-                <span class="access-name" data-i18n="tunnelName">AmneziaWG 2.0 + WireGuard</span>
-                <span class="access-state" data-i18n="onlineState">онлайн</span>
-              </div>
-              <div class="access-row">
-                <span class="access-kicker" data-i18n="botLabel">Бот</span>
-                <span class="access-name" data-i18n="botName">Автовыдача конфигов и QR</span>
-                <span class="access-state" data-i18n="readyState">готов</span>
-              </div>
-            </div>
-          </section>
+            <span class="card-mark">SX</span>
+            <h1 class="card-title" data-i18n="loginTitle">Вход</h1>
+            <p class="card-subtitle" data-i18n="loginSubtitle">Доступ только для администратора</p>
 
-          <section class="panel-stack" aria-label="Login preview">
-            <div class="login-card">
-              <button class="settings-button" type="button" aria-label="Settings" data-demo-button>
+            <form class="form" aria-label="Demo login form">
+              <label class="field">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path
-                    d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"
+                    d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"
                     stroke="currentColor"
                     stroke-width="1.8"
-                  />
-                  <path
-                    d="M19.2 13.2v-2.4l-2.1-.4a6.7 6.7 0 0 0-.8-1.9l1.2-1.8-1.7-1.7-1.8 1.2c-.6-.3-1.2-.6-1.9-.8L11.7 3H9.3l-.4 2.1c-.7.2-1.3.4-1.9.8L5.2 4.7 3.5 6.4l1.2 1.8c-.3.6-.6 1.2-.8 1.9l-2.1.4v2.4l2.1.4c.2.7.4 1.3.8 1.9L3.5 17l1.7 1.7 1.8-1.2c.6.3 1.2.6 1.9.8l.4 2.1h2.4l.4-2.1c.7-.2 1.3-.4 1.9-.8l1.8 1.2 1.7-1.7-1.2-1.8c.3-.6.6-1.2.8-1.9l2.1-.1Z"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linejoin="round"
+                    stroke-linecap="round"
                   />
                 </svg>
-              </button>
-
-              <span class="card-mark">SX</span>
-              <h2 class="card-title" data-i18n="loginTitle">Вход</h2>
-              <p class="card-subtitle" data-i18n="loginSubtitle">Доступ только для администратора</p>
-
-              <form class="form" aria-label="Demo login form">
-                <label class="field">
+                <input autocomplete="off" type="text" data-i18n-placeholder="username" />
+              </label>
+              <label class="field">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M7 10V8a5 5 0 0 1 10 0v2M6.5 10h11A1.5 1.5 0 0 1 19 11.5v7A1.5 1.5 0 0 1 17.5 20h-11A1.5 1.5 0 0 1 5 18.5v-7A1.5 1.5 0 0 1 6.5 10Z"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <input autocomplete="off" type="password" data-i18n-placeholder="password" />
+                <button class="eye-button" type="button" aria-label="Show password" data-password-toggle>
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path
-                      d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"
+                      d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"
                       stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
+                      stroke-width="1.7"
                     />
-                  </svg>
-                  <input autocomplete="off" type="text" data-i18n-placeholder="username" />
-                </label>
-                <label class="field">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path
-                      d="M7 10V8a5 5 0 0 1 10 0v2M6.5 10h11A1.5 1.5 0 0 1 19 11.5v7A1.5 1.5 0 0 1 17.5 20h-11A1.5 1.5 0 0 1 5 18.5v-7A1.5 1.5 0 0 1 6.5 10Z"
+                      d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
                       stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
+                      stroke-width="1.7"
                     />
                   </svg>
-                  <input autocomplete="off" type="password" data-i18n-placeholder="password" />
-                  <button class="eye-button" type="button" aria-label="Show password" data-password-toggle>
-                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path
-                        d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                      />
-                      <path
-                        d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                      />
-                    </svg>
-                  </button>
-                </label>
-                <button class="submit" type="submit" data-i18n="loginButton">Войти</button>
-              </form>
-            </div>
-
-            <div class="status-card">
-              <div class="status-head">
-                <span class="status-title" data-i18n="statusTitle">Автоматизация</span>
-                <span class="status-pill" data-i18n="statusPill">работает</span>
-              </div>
-              <div class="metrics" aria-label="Preview metrics">
-                <div class="metric">
-                  <span data-i18n="metricClients">Клиенты</span>
-                  <strong>12</strong>
-                </div>
-                <div class="metric">
-                  <span data-i18n="metricProtocols">Протоколы</span>
-                  <strong>AWG/WG</strong>
-                </div>
-                <div class="metric">
-                  <span data-i18n="metricLimit">Лимит</span>
-                  <strong>6</strong>
-                </div>
-              </div>
-            </div>
-
-            <p class="note">
-              <strong data-i18n="noteStrong">Preview-страница.</strong>
-              <span data-i18n="noteText">
-                Настоящая админка не открыта в интернет и доступна только через SSH-туннель.
-              </span>
-            </p>
+                </button>
+              </label>
+              <button class="submit" type="submit" data-i18n="loginButton">Войти</button>
+            </form>
           </section>
         </main>
       </div>
@@ -784,80 +416,25 @@
     <script>
       const dictionary = {
         ru: {
-          navAwg: "AWG",
-          navWg: "WG",
-          navBot: "Telegram Bot",
-          navAccess: "Private access",
-          theme: "Light",
-          titleLine1: "VPN-доступ,",
-          titleLine2: "который выдается сам",
-          subtitle:
-            "Закрытая панель для AWG/WG-сервера, клиентских ключей и Telegram-бота. Админка остается приватной, а пользователи получают конфиги и QR-коды без ручной выдачи.",
-          panelLabel: "Панель",
-          panelName: "3AX-UI через SSH-туннель",
-          privateState: "приватно",
-          tunnelLabel: "Туннель",
-          tunnelName: "AmneziaWG 2.0 + WireGuard",
-          onlineState: "онлайн",
-          botLabel: "Бот",
-          botName: "Автовыдача конфигов и QR",
-          readyState: "готов",
           loginTitle: "Вход",
           loginSubtitle: "Доступ только для администратора",
           username: "Логин",
           password: "Пароль",
           loginButton: "Войти",
-          statusTitle: "Автоматизация",
-          statusPill: "работает",
-          metricClients: "Клиенты",
-          metricProtocols: "Протоколы",
-          metricLimit: "Лимит",
-          noteStrong: "Preview-страница.",
-          noteText: "Настоящая админка не открыта в интернет и доступна только через SSH-туннель.",
-          demoToast: "Это безопасный preview. Настоящий вход работает только на закрытой панели.",
-          dark: "Dark",
-          light: "Light"
+          demoToast: "Это preview. Настоящая панель открывается через SSH-туннель."
         },
         en: {
-          navAwg: "AWG",
-          navWg: "WG",
-          navBot: "Telegram Bot",
-          navAccess: "Private access",
-          theme: "Light",
-          titleLine1: "VPN access",
-          titleLine2: "issued automatically",
-          subtitle:
-            "A private console for the AWG/WG server, client keys, and Telegram bot. Admin access stays private while users receive configs and QR codes without manual delivery.",
-          panelLabel: "Panel",
-          panelName: "3AX-UI through SSH tunnel",
-          privateState: "private",
-          tunnelLabel: "Tunnel",
-          tunnelName: "AmneziaWG 2.0 + WireGuard",
-          onlineState: "online",
-          botLabel: "Bot",
-          botName: "Automatic configs and QR",
-          readyState: "ready",
           loginTitle: "Sign in",
           loginSubtitle: "Administrator access only",
           username: "Username",
           password: "Password",
           loginButton: "Log in",
-          statusTitle: "Automation",
-          statusPill: "running",
-          metricClients: "Clients",
-          metricProtocols: "Protocols",
-          metricLimit: "Limit",
-          noteStrong: "Preview page.",
-          noteText: "The real admin panel is not exposed to the internet and opens only through an SSH tunnel.",
-          demoToast: "This is a safe preview. Real login works only on the private panel.",
-          dark: "Dark",
-          light: "Light"
+          demoToast: "This is a preview. The real panel opens through an SSH tunnel."
         }
       };
 
       const state = {
-        language: localStorage.getItem("stratix-preview-language") || "ru",
-        theme: localStorage.getItem("stratix-preview-theme") || "light"
+        language: localStorage.getItem("stratix-preview-language") || "ru"
       };
 
       const toast = document.querySelector("[data-toast]");
@@ -876,14 +453,6 @@
         document.querySelectorAll("[data-language]").forEach((button) => {
           button.classList.toggle("is-active", button.dataset.language === state.language);
         });
-        document.querySelector("[data-theme-toggle]").textContent =
-          state.theme === "dark" ? copy.dark : copy.light;
-      }
-
-      function applyTheme() {
-        document.body.dataset.theme = state.theme;
-        localStorage.setItem("stratix-preview-theme", state.theme);
-        translate();
       }
 
       function showToast(message) {
@@ -899,11 +468,6 @@
           localStorage.setItem("stratix-preview-language", state.language);
           translate();
         });
-      });
-
-      document.querySelector("[data-theme-toggle]").addEventListener("click", () => {
-        state.theme = state.theme === "dark" ? "light" : "dark";
-        applyTheme();
       });
 
       document.querySelector("[data-password-toggle]").addEventListener("click", () => {
@@ -923,7 +487,7 @@
         });
       });
 
-      applyTheme();
+      translate();
     </script>
   </body>
 </html>
