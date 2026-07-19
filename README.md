@@ -15,6 +15,16 @@
 
 Открой `index.html` в браузере.
 
+## StratiX VPN panel preview
+
+Статический preview веб-панели для показа: `stratix-panel-preview/index.html`.
+
+После публикации GitHub Pages:
+
+```text
+https://rage213.github.io/china-plan/stratix-panel-preview/
+```
+
 ## Первый кейс в портфолио
 
 Этот проект можно показывать как пример маленького полезного веб-приложения: форма, расчеты, сохранение, адаптивная верстка.
