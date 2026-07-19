@@ -103,6 +103,10 @@
         cursor: pointer;
       }
 
+      .is-hidden {
+        display: none !important;
+      }
+
       .page {
         position: relative;
         isolation: isolate;
@@ -231,7 +235,8 @@
         color: #e3fffb;
       }
 
-      .preview-stage {
+      .preview-stage,
+      .dashboard-stage {
         display: grid;
         flex: 1;
         place-items: center;
@@ -273,6 +278,19 @@
       .form {
         display: grid;
         gap: 14px;
+      }
+
+      .form-error {
+        min-height: 19px;
+        margin: -2px 0 0;
+        color: #ff8f9b;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+
+      .form-error:empty {
+        display: none;
       }
 
       .field {
@@ -352,7 +370,111 @@
         box-shadow: 0 16px 34px rgba(var(--accent-rgb), 0.22);
       }
 
+      .console-panel {
+        width: min(100%, 820px);
+        padding: 28px;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+      }
+
+      .console-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+        padding-bottom: 22px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .console-heading {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .console-title {
+        margin: 0;
+        color: var(--text);
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1.12;
+      }
+
+      .console-subtitle {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .logout-button {
+        min-height: 36px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.055);
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .dashboard-card {
+        min-height: 118px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.045);
+      }
+
+      .dashboard-card span {
+        display: block;
+        color: var(--dim);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .dashboard-card strong {
+        display: block;
+        margin-top: 10px;
+        color: var(--text);
+        font-size: 24px;
+        line-height: 1.1;
+      }
+
+      .dashboard-card p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .status-line {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .status-line::before {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 0 5px rgba(var(--accent-rgb), 0.12);
+        content: "";
+      }
+
       .submit:focus-visible,
+      .logout-button:focus-visible,
       .language-button:focus-visible,
       .theme-swatch:focus-visible,
       .eye-button:focus-visible {
@@ -391,6 +513,18 @@
 
         .login-card {
           padding: 24px;
+        }
+
+        .console-panel {
+          padding: 20px;
+        }
+
+        .console-top {
+          flex-direction: column;
+        }
+
+        .dashboard-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -442,7 +576,7 @@
           </div>
         </header>
 
-        <main class="preview-stage">
+        <main class="preview-stage" data-login-screen>
           <section class="login-card" aria-label="Login preview">
             <span class="card-mark">SX</span>
             <h1 class="card-title" data-i18n="loginTitle">Вход</h1>
@@ -458,7 +592,12 @@
                     stroke-linecap="round"
                   />
                 </svg>
-                <input autocomplete="off" type="text" data-i18n-placeholder="username" />
+                <input
+                  autocomplete="username"
+                  type="text"
+                  data-login-username
+                  data-i18n-placeholder="username"
+                />
               </label>
               <label class="field">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -469,7 +608,12 @@
                     stroke-linecap="round"
                   />
                 </svg>
-                <input autocomplete="off" type="password" data-i18n-placeholder="password" />
+                <input
+                  autocomplete="current-password"
+                  type="password"
+                  data-login-password
+                  data-i18n-placeholder="password"
+                />
                 <button class="eye-button" type="button" aria-label="Show password" data-password-toggle>
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path
@@ -485,8 +629,46 @@
                   </svg>
                 </button>
               </label>
+              <p class="form-error" aria-live="polite" data-login-error></p>
               <button class="submit" type="submit" data-i18n="loginButton">Войти</button>
             </form>
+          </section>
+        </main>
+
+        <main class="dashboard-stage is-hidden" data-dashboard-screen>
+          <section class="console-panel" aria-label="StratiX console">
+            <div class="console-top">
+              <div class="console-heading">
+                <span class="card-mark">SX</span>
+                <div>
+                  <h1 class="console-title" data-i18n="consoleTitle">StratiX Console</h1>
+                  <p class="console-subtitle" data-i18n="consoleSubtitle">
+                    Управление VPN-доступом и ботом
+                  </p>
+                </div>
+              </div>
+              <button class="logout-button" type="button" data-logout data-i18n="logoutButton">
+                Выйти
+              </button>
+            </div>
+
+            <div class="dashboard-grid">
+              <article class="dashboard-card">
+                <span data-i18n="cardUsersLabel">Пользователи</span>
+                <strong>12</strong>
+                <p data-i18n="cardUsersText">Клиенты получают ключи через Telegram.</p>
+              </article>
+              <article class="dashboard-card">
+                <span data-i18n="cardProtocolsLabel">Протоколы</span>
+                <strong>AWG / WG / VLESS</strong>
+                <p data-i18n="cardProtocolsText">Выдача конфигов и ссылок включена.</p>
+              </article>
+              <article class="dashboard-card">
+                <span data-i18n="cardStatusLabel">Статус</span>
+                <strong class="status-line" data-i18n="cardStatusValue">Онлайн</strong>
+                <p data-i18n="cardStatusText">Панель готова к проверке.</p>
+              </article>
+            </div>
           </section>
         </main>
       </div>
@@ -499,14 +681,36 @@
           loginSubtitle: "Доступ только для администратора",
           username: "Логин",
           password: "Пароль",
-          loginButton: "Войти"
+          loginButton: "Войти",
+          loginError: "Введите логин и пароль.",
+          consoleTitle: "StratiX Console",
+          consoleSubtitle: "Управление VPN-доступом и ботом",
+          logoutButton: "Выйти",
+          cardUsersLabel: "Пользователи",
+          cardUsersText: "Клиенты получают ключи через Telegram.",
+          cardProtocolsLabel: "Протоколы",
+          cardProtocolsText: "Выдача конфигов и ссылок включена.",
+          cardStatusLabel: "Статус",
+          cardStatusValue: "Онлайн",
+          cardStatusText: "Панель готова к проверке."
         },
         en: {
           loginTitle: "Sign in",
           loginSubtitle: "Administrator access only",
           username: "Username",
           password: "Password",
-          loginButton: "Log in"
+          loginButton: "Log in",
+          loginError: "Enter username and password.",
+          consoleTitle: "StratiX Console",
+          consoleSubtitle: "VPN access and bot control",
+          logoutButton: "Log out",
+          cardUsersLabel: "Users",
+          cardUsersText: "Clients receive keys through Telegram.",
+          cardProtocolsLabel: "Protocols",
+          cardProtocolsText: "Config and link delivery is enabled.",
+          cardStatusLabel: "Status",
+          cardStatusValue: "Online",
+          cardStatusText: "Panel is ready for review."
         }
       };
 
@@ -533,6 +737,10 @@
         document.querySelectorAll("[data-language]").forEach((button) => {
           button.classList.toggle("is-active", button.dataset.language === state.language);
         });
+        const loginError = document.querySelector("[data-login-error]");
+        if (loginError && loginError.textContent.trim()) {
+          loginError.textContent = copy.loginError;
+        }
       }
 
       function applyTheme() {
@@ -541,6 +749,22 @@
           button.classList.toggle("is-active", button.dataset.theme === state.theme);
         });
         localStorage.setItem("stratix-preview-theme", state.theme);
+      }
+
+      function setAuthenticated(isAuthenticated) {
+        document
+          .querySelector("[data-login-screen]")
+          .classList.toggle("is-hidden", isAuthenticated);
+        document
+          .querySelector("[data-dashboard-screen]")
+          .classList.toggle("is-hidden", !isAuthenticated);
+        if (isAuthenticated) {
+          sessionStorage.setItem("stratix-preview-auth", "1");
+          document.querySelector("[data-login-error]").textContent = "";
+          return;
+        }
+        sessionStorage.removeItem("stratix-preview-auth");
+        document.querySelector("[data-login-password]").value = "";
       }
 
       document.querySelectorAll("[data-language]").forEach((button) => {
@@ -567,10 +791,23 @@
 
       document.querySelector(".form").addEventListener("submit", (event) => {
         event.preventDefault();
+        const username = document.querySelector("[data-login-username]").value.trim();
+        const password = document.querySelector("[data-login-password]").value;
+        if (username && password) {
+          setAuthenticated(true);
+          return;
+        }
+        document.querySelector("[data-login-error]").textContent =
+          dictionary[state.language].loginError;
+      });
+
+      document.querySelector("[data-logout]").addEventListener("click", () => {
+        setAuthenticated(false);
       });
 
       applyTheme();
       translate();
+      setAuthenticated(sessionStorage.getItem("stratix-preview-auth") === "1");
     </script>
   </body>
 </html>
