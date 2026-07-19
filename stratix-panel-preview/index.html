@@ -12,21 +12,21 @@
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
       :root {
-        color-scheme: light;
-        --bg: #edf4f8;
-        --bg-2: #dfeaf1;
-        --surface: rgba(255, 255, 255, 0.92);
-        --surface-muted: rgba(19, 43, 64, 0.06);
-        --line: rgba(19, 43, 64, 0.14);
-        --line-strong: rgba(19, 43, 64, 0.2);
-        --text: #102033;
-        --muted: rgba(16, 32, 51, 0.66);
-        --dim: rgba(16, 32, 51, 0.42);
-        --accent: #0a8678;
-        --accent-strong: #056c61;
-        --focus: rgba(10, 134, 120, 0.16);
-        --shadow: 0 34px 95px rgba(18, 43, 64, 0.18);
-        --soft-shadow: 0 14px 42px rgba(18, 43, 64, 0.12);
+        color-scheme: dark;
+        --bg: #0a1320;
+        --bg-2: #1d2938;
+        --surface: rgba(25, 37, 54, 0.9);
+        --surface-muted: rgba(255, 255, 255, 0.065);
+        --line: rgba(255, 255, 255, 0.12);
+        --line-strong: rgba(255, 255, 255, 0.18);
+        --text: #f5f7fb;
+        --muted: rgba(245, 247, 251, 0.68);
+        --dim: rgba(245, 247, 251, 0.46);
+        --accent: #15a895;
+        --accent-strong: #0a796d;
+        --focus: rgba(21, 168, 149, 0.22);
+        --shadow: 0 34px 95px rgba(0, 0, 0, 0.34);
+        --soft-shadow: 0 14px 42px rgba(0, 0, 0, 0.24);
         --radius: 8px;
       }
 
@@ -39,12 +39,16 @@
         min-height: 100vh;
         overflow-x: hidden;
         background:
-          linear-gradient(rgba(16, 32, 51, 0.04) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(16, 32, 51, 0.04) 1px, transparent 1px),
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          radial-gradient(circle at 82% 16%, rgba(98, 102, 217, 0.24), transparent 32%),
+          radial-gradient(circle at 14% 82%, rgba(21, 168, 149, 0.22), transparent 30%),
           linear-gradient(180deg, var(--bg), var(--bg-2));
         background-size:
           48px 48px,
           48px 48px,
+          auto,
+          auto,
           auto;
         color: var(--text);
         font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -61,10 +65,29 @@
       }
 
       .page {
+        position: relative;
+        isolation: isolate;
         min-height: 100vh;
       }
 
+      .page::after {
+        position: fixed;
+        right: -8vw;
+        bottom: -25vh;
+        left: -8vw;
+        z-index: 0;
+        height: 34vh;
+        content: "";
+        background:
+          linear-gradient(170deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03)),
+          linear-gradient(7deg, transparent 0 43%, rgba(21, 168, 149, 0.24) 44% 49%, transparent 50%),
+          linear-gradient(-6deg, transparent 0 33%, rgba(98, 102, 217, 0.24) 34% 39%, transparent 40%);
+        transform: skewY(-3deg);
+      }
+
       .shell {
+        position: relative;
+        z-index: 1;
         display: flex;
         flex-direction: column;
         width: min(1120px, calc(100vw - 48px));
@@ -96,8 +119,8 @@
         display: grid;
         place-items: center;
         border-radius: var(--radius);
-        background: var(--text);
-        color: #fff;
+        background: #f5f7fb;
+        color: #0d1827;
         font-weight: 800;
         box-shadow: var(--soft-shadow);
       }
@@ -123,7 +146,7 @@
         padding: 0 12px;
         border: 1px solid var(--line);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.58);
+        background: rgba(255, 255, 255, 0.055);
         color: var(--muted);
         font-size: 12px;
         font-weight: 800;
@@ -131,8 +154,8 @@
 
       .language-button.is-active {
         border-color: rgba(10, 134, 120, 0.42);
-        background: rgba(10, 134, 120, 0.12);
-        color: var(--accent-strong);
+        background: rgba(21, 168, 149, 0.14);
+        color: #e3fffb;
       }
 
       .preview-stage {
@@ -161,9 +184,9 @@
         width: 38px;
         height: 38px;
         place-items: center;
-        border: 1px solid rgba(10, 134, 120, 0.36);
+        border: 1px solid rgba(21, 168, 149, 0.38);
         border-radius: 999px;
-        background: rgba(10, 134, 120, 0.1);
+        background: rgba(21, 168, 149, 0.12);
         color: var(--accent);
       }
 
@@ -272,7 +295,7 @@
         color: #fff;
         font-size: 15px;
         font-weight: 800;
-        box-shadow: 0 16px 34px rgba(10, 134, 120, 0.22);
+        box-shadow: 0 16px 34px rgba(21, 168, 149, 0.22);
       }
 
       .submit:focus-visible,
@@ -292,7 +315,7 @@
         padding: 13px 15px;
         border: 1px solid var(--line-strong);
         border-radius: var(--radius);
-        background: #fff;
+        background: #192536;
         color: var(--text);
         box-shadow: var(--shadow);
         font-size: 14px;
