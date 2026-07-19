@@ -133,7 +133,7 @@
         z-index: 1;
         display: flex;
         flex-direction: column;
-        width: min(1120px, calc(100vw - 48px));
+        width: min(1260px, calc(100vw - 48px));
         min-height: 100vh;
         margin: 0 auto;
         padding: 28px 0 44px;
@@ -241,6 +241,11 @@
         flex: 1;
         place-items: center;
         padding: clamp(54px, 11vh, 118px) 0 30px;
+      }
+
+      .dashboard-stage {
+        place-items: start center;
+        padding: 30px 0;
       }
 
       .login-card {
@@ -371,21 +376,101 @@
       }
 
       .console-panel {
-        width: min(100%, 1080px);
-        padding: 28px;
+        width: min(100%, 1180px);
+        padding: 0;
+        overflow: hidden;
         border: 1px solid var(--line-strong);
         border-radius: var(--radius);
-        background: var(--surface);
+        background: rgba(13, 24, 38, 0.96);
         box-shadow: var(--shadow);
         backdrop-filter: blur(18px);
       }
 
+      .operator-console {
+        display: grid;
+        grid-template-columns: 218px minmax(0, 1fr);
+        min-height: 672px;
+      }
+
+      .console-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 18px 14px;
+        border-right: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.14);
+      }
+
+      .sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 4px 12px;
+        border-bottom: 1px solid var(--line);
+        color: var(--text);
+        font-size: 15px;
+        font-weight: 850;
+      }
+
+      .sidebar-brand .card-mark {
+        width: 34px;
+        height: 34px;
+        font-size: 11px;
+      }
+
+      .sidebar-nav {
+        display: grid;
+        gap: 5px;
+      }
+
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 34px;
+        padding: 0 10px;
+        border-radius: 7px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .sidebar-link.is-active {
+        background: rgba(var(--accent-rgb), 0.13);
+        color: var(--text);
+      }
+
+      .sidebar-count {
+        min-width: 24px;
+        padding: 2px 7px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        font-size: 11px;
+        text-align: center;
+      }
+
+      .sidebar-foot {
+        margin-top: auto;
+        padding: 12px 10px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .workbench {
+        min-width: 0;
+        padding: 22px;
+      }
+
       .console-top {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: space-between;
         gap: 18px;
-        padding-bottom: 22px;
+        padding-bottom: 18px;
         border-bottom: 1px solid var(--line);
       }
 
@@ -398,15 +483,13 @@
       .console-title {
         margin: 0;
         color: var(--text);
-        font-size: 28px;
+        font-size: 22px;
         font-weight: 800;
         line-height: 1.12;
       }
 
       .console-subtitle {
-        margin: 5px 0 0;
-        color: var(--muted);
-        font-size: 14px;
+        display: none;
       }
 
       .logout-button {
@@ -423,16 +506,16 @@
       .dashboard-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 12px;
-        margin-top: 22px;
+        gap: 10px;
+        margin-top: 16px;
       }
 
       .dashboard-card {
-        min-height: 118px;
-        padding: 16px;
+        min-height: 84px;
+        padding: 14px;
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.045);
+        background: rgba(255, 255, 255, 0.035);
       }
 
       .dashboard-card span {
@@ -447,19 +530,16 @@
         display: block;
         margin-top: 10px;
         color: var(--text);
-        font-size: 24px;
+        font-size: 23px;
         line-height: 1.1;
       }
 
       .dashboard-card p {
-        margin: 10px 0 0;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.45;
+        display: none;
       }
 
       .dashboard-card strong.small-value {
-        font-size: 20px;
+        font-size: 18px;
       }
 
       .console-layout {
@@ -475,10 +555,10 @@
 
       .section-card {
         min-width: 0;
-        padding: 18px;
+        padding: 16px;
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.038);
+        background: rgba(255, 255, 255, 0.026);
       }
 
       .section-head {
@@ -497,10 +577,7 @@
       }
 
       .section-subtitle {
-        margin: 5px 0 0;
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.4;
+        display: none;
       }
 
       .state-pill {
@@ -536,7 +613,7 @@
       }
 
       .server-row {
-        grid-template-columns: minmax(150px, 1fr) minmax(180px, 1.25fr) minmax(92px, 0.6fr);
+        grid-template-columns: minmax(110px, 0.85fr) minmax(120px, 0.75fr) minmax(180px, 1.25fr) minmax(90px, 0.55fr);
         align-items: center;
       }
 
@@ -546,7 +623,8 @@
       }
 
       .audit-row {
-        grid-template-columns: 62px minmax(0, 1fr);
+        grid-template-columns: 62px minmax(0, 1fr) minmax(120px, 0.65fr);
+        align-items: center;
       }
 
       .row-title {
@@ -563,7 +641,7 @@
       }
 
       .row-subtitle {
-        margin-top: 4px;
+        display: none;
       }
 
       .badge-list {
@@ -633,12 +711,40 @@
         gap: 8px;
       }
 
+      .dashboard-card strong.status-line {
+        display: inline-flex;
+      }
+
       .status-line::before {
         width: 8px;
         height: 8px;
+        flex: 0 0 8px;
         border-radius: 999px;
         background: var(--accent);
-        box-shadow: 0 0 0 5px rgba(var(--accent-rgb), 0.12);
+        box-shadow: none;
+        content: "";
+      }
+
+      .status-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        width: fit-content;
+        min-height: 26px;
+        padding: 0 10px;
+        border: 1px solid rgba(var(--accent-rgb), 0.28);
+        border-radius: 999px;
+        background: rgba(var(--accent-rgb), 0.1);
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 850;
+      }
+
+      .status-chip::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--accent);
         content: "";
       }
 
@@ -685,11 +791,12 @@
         }
 
         .console-panel {
-          padding: 20px;
+          padding: 0;
         }
 
         .console-top {
           flex-direction: column;
+          align-items: flex-start;
         }
 
         .dashboard-grid {
@@ -698,6 +805,7 @@
 
         .console-layout,
         .console-layout--lower,
+        .operator-console,
         .server-row,
         .client-row,
         .table-head,
@@ -707,6 +815,14 @@
 
         .table-head {
           display: none;
+        }
+
+        .console-sidebar {
+          display: none;
+        }
+
+        .workbench {
+          padding: 18px;
         }
       }
     </style>
@@ -819,172 +935,185 @@
 
         <main class="dashboard-stage is-hidden" data-dashboard-screen>
           <section class="console-panel" aria-label="StratiX console">
-            <div class="console-top">
-              <div class="console-heading">
-                <span class="card-mark">SX</span>
-                <div>
-                  <h1 class="console-title" data-i18n="consoleTitle">StratiX Console</h1>
-                  <p class="console-subtitle" data-i18n="consoleSubtitle">
-                    Управление VPN-доступом и ботом
-                  </p>
+            <div class="operator-console">
+              <aside class="console-sidebar" aria-label="Console navigation">
+                <div class="sidebar-brand">
+                  <span class="card-mark">SX</span>
+                  <span>StratiX</span>
+                </div>
+                <nav class="sidebar-nav" aria-label="Preview sections">
+                  <div class="sidebar-link is-active">
+                    <span data-i18n="navOverview">Обзор</span>
+                    <span class="sidebar-count">4</span>
+                  </div>
+                  <div class="sidebar-link">
+                    <span data-i18n="navServers">Серверы</span>
+                    <span class="sidebar-count">1</span>
+                  </div>
+                  <div class="sidebar-link">
+                    <span data-i18n="navClients">Клиенты</span>
+                    <span class="sidebar-count">18</span>
+                  </div>
+                  <div class="sidebar-link">
+                    <span data-i18n="navBot">Бот</span>
+                    <span class="sidebar-count">on</span>
+                  </div>
+                  <div class="sidebar-link">
+                    <span data-i18n="navLogs">Журнал</span>
+                    <span class="sidebar-count">3</span>
+                  </div>
+                </nav>
+                <div class="sidebar-foot" data-i18n="sidebarFoot">
+                  Preview без подключения к приватному серверу.
+                </div>
+              </aside>
+
+              <div class="workbench">
+                <div class="console-top">
+                  <div class="console-heading">
+                    <span class="card-mark">SX</span>
+                    <div>
+                      <h1 class="console-title" data-i18n="consoleTitle">StratiX Console</h1>
+                      <p class="console-subtitle" data-i18n="consoleSubtitle">
+                        Управление VPN-доступом и ботом
+                      </p>
+                    </div>
+                  </div>
+                  <button class="logout-button" type="button" data-logout data-i18n="logoutButton">
+                    Выйти
+                  </button>
+                </div>
+
+                <div class="dashboard-grid">
+                  <article class="dashboard-card">
+                    <span data-i18n="cardUsersLabel">Пользователи</span>
+                    <strong>12</strong>
+                    <p data-i18n="cardUsersText">Клиенты получают ключи через Telegram.</p>
+                  </article>
+                  <article class="dashboard-card">
+                    <span data-i18n="cardKeysLabel">Активные ключи</span>
+                    <strong>18</strong>
+                    <p data-i18n="cardKeysText">AWG/WG конфиги и VLESS-ссылки выданы.</p>
+                  </article>
+                  <article class="dashboard-card">
+                    <span data-i18n="cardProtocolsLabel">Протоколы</span>
+                    <strong class="small-value">AWG 2 / WG 2</strong>
+                    <p data-i18n="cardProtocolsText">Плюс VLESS как ссылка для клиента.</p>
+                  </article>
+                  <article class="dashboard-card">
+                    <span data-i18n="cardStatusLabel">Статус</span>
+                    <strong class="status-line" data-i18n="cardStatusValue">Онлайн</strong>
+                    <p data-i18n="cardStatusText">Панель готова к проверке.</p>
+                  </article>
+                </div>
+
+                <div class="console-layout">
+                  <section class="section-card" aria-label="Servers">
+                    <div class="section-head">
+                      <div>
+                        <h2 class="section-title" data-i18n="serversTitle">Серверы и протоколы</h2>
+                      </div>
+                      <span class="state-pill" data-i18n="stateReady">Готово</span>
+                    </div>
+
+                    <div class="server-row">
+                      <div class="row-title" data-i18n="serverPrimaryName">Germany 1</div>
+                      <div class="row-muted">45.144.220.86</div>
+                      <div class="badge-list" aria-label="Protocols">
+                        <span class="protocol-badge">AWG 2.0</span>
+                        <span class="protocol-badge">WG 2.0</span>
+                        <span class="protocol-badge">VLESS TCP</span>
+                      </div>
+                      <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
+                    </div>
+                  </section>
+
+                  <section class="section-card" aria-label="Telegram bot">
+                    <div class="section-head">
+                      <div>
+                        <h2 class="section-title" data-i18n="botTitle">Telegram-бот</h2>
+                      </div>
+                      <span class="state-pill" data-i18n="botOnline">Онлайн</span>
+                    </div>
+
+                    <div class="meta-grid">
+                      <div class="meta-item">
+                        <span data-i18n="botUsernameLabel">Бот</span>
+                        <strong>@StratiXVPNbot</strong>
+                      </div>
+                      <div class="meta-item">
+                        <span data-i18n="botModeLabel">Режим</span>
+                        <strong>Long polling</strong>
+                      </div>
+                      <div class="meta-item">
+                        <span data-i18n="botLimitLabel">Лимит</span>
+                        <strong data-i18n="botLimitValue">6 ключей на пользователя</strong>
+                      </div>
+                      <div class="meta-item">
+                        <span data-i18n="botStorageLabel">База</span>
+                        <strong>SQLite</strong>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+                <div class="console-layout console-layout--lower">
+                  <section class="section-card" aria-label="Recent clients">
+                    <div class="section-head">
+                      <div>
+                        <h2 class="section-title" data-i18n="clientsTitle">Последние клиенты</h2>
+                      </div>
+                    </div>
+                    <div class="table-head">
+                      <span data-i18n="tableClient">Клиент</span>
+                      <span data-i18n="tableProtocol">Протокол</span>
+                      <span data-i18n="tableDelivery">Выдача</span>
+                      <span data-i18n="tableStatus">Статус</span>
+                    </div>
+                    <div class="client-row">
+                      <div class="row-title">tg_1453136053_1</div>
+                      <div class="row-muted">AWG 2.0</div>
+                      <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
+                      <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
+                    </div>
+                    <div class="client-row">
+                      <div class="row-title">tg_1453136053_2</div>
+                      <div class="row-muted">WG 2.0</div>
+                      <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
+                      <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
+                    </div>
+                    <div class="client-row">
+                      <div class="row-title">tg_254453_1</div>
+                      <div class="row-muted">VLESS</div>
+                      <div class="row-muted" data-i18n="deliveryLink">Ссылка</div>
+                      <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
+                    </div>
+                  </section>
+
+                  <section class="section-card" aria-label="Activity">
+                    <div class="section-head">
+                      <div>
+                        <h2 class="section-title" data-i18n="activityTitle">Последние действия</h2>
+                      </div>
+                    </div>
+                    <div class="audit-row">
+                      <div class="row-muted">18:09</div>
+                      <div class="row-title" data-i18n="auditCreated">Создан дополнительный ключ</div>
+                      <div class="row-muted">tg_1453136053_2</div>
+                    </div>
+                    <div class="audit-row">
+                      <div class="row-muted">18:07</div>
+                      <div class="row-title" data-i18n="auditVless">Выдана VLESS-ссылка</div>
+                      <div class="row-muted" data-i18n="deliveryLink">Ссылка</div>
+                    </div>
+                    <div class="audit-row">
+                      <div class="row-muted">18:05</div>
+                      <div class="row-title" data-i18n="auditStart">Первый /start обработан</div>
+                      <div class="row-muted" data-i18n="stateReady">Готово</div>
+                    </div>
+                  </section>
                 </div>
               </div>
-              <button class="logout-button" type="button" data-logout data-i18n="logoutButton">
-                Выйти
-              </button>
-            </div>
-
-            <div class="dashboard-grid">
-              <article class="dashboard-card">
-                <span data-i18n="cardUsersLabel">Пользователи</span>
-                <strong>12</strong>
-                <p data-i18n="cardUsersText">Клиенты получают ключи через Telegram.</p>
-              </article>
-              <article class="dashboard-card">
-                <span data-i18n="cardKeysLabel">Активные ключи</span>
-                <strong>18</strong>
-                <p data-i18n="cardKeysText">AWG/WG конфиги и VLESS-ссылки выданы.</p>
-              </article>
-              <article class="dashboard-card">
-                <span data-i18n="cardProtocolsLabel">Протоколы</span>
-                <strong class="small-value">AWG 2 / WG 2</strong>
-                <p data-i18n="cardProtocolsText">Плюс VLESS как ссылка для клиента.</p>
-              </article>
-              <article class="dashboard-card">
-                <span data-i18n="cardStatusLabel">Статус</span>
-                <strong class="status-line" data-i18n="cardStatusValue">Онлайн</strong>
-                <p data-i18n="cardStatusText">Панель готова к проверке.</p>
-              </article>
-            </div>
-
-            <div class="console-layout">
-              <section class="section-card" aria-label="Servers">
-                <div class="section-head">
-                  <div>
-                    <h2 class="section-title" data-i18n="serversTitle">Серверы и протоколы</h2>
-                    <p class="section-subtitle" data-i18n="serversSubtitle">
-                      Один VPS, приватная админка и публичная выдача ключей через бота.
-                    </p>
-                  </div>
-                  <span class="state-pill" data-i18n="stateReady">Готово</span>
-                </div>
-
-                <div class="server-row">
-                  <div>
-                    <div class="row-title" data-i18n="serverPrimaryName">Germany 1</div>
-                    <div class="row-subtitle">45.144.220.86</div>
-                  </div>
-                  <div class="badge-list" aria-label="Protocols">
-                    <span class="protocol-badge">AWG 2.0</span>
-                    <span class="protocol-badge">WG 2.0</span>
-                    <span class="protocol-badge">VLESS TCP</span>
-                  </div>
-                  <div>
-                    <div class="row-title" data-i18n="serverOnline">Онлайн</div>
-                    <div class="row-subtitle">systemd</div>
-                  </div>
-                </div>
-              </section>
-
-              <section class="section-card" aria-label="Telegram bot">
-                <div class="section-head">
-                  <div>
-                    <h2 class="section-title" data-i18n="botTitle">Telegram-бот</h2>
-                    <p class="section-subtitle" data-i18n="botSubtitle">
-                      Создаёт ключи и отдаёт конфиг без ручной выдачи.
-                    </p>
-                  </div>
-                  <span class="state-pill" data-i18n="botOnline">Онлайн</span>
-                </div>
-
-                <div class="meta-grid">
-                  <div class="meta-item">
-                    <span data-i18n="botUsernameLabel">Бот</span>
-                    <strong>@StratiXVPNbot</strong>
-                  </div>
-                  <div class="meta-item">
-                    <span data-i18n="botModeLabel">Режим</span>
-                    <strong>Long polling</strong>
-                  </div>
-                  <div class="meta-item">
-                    <span data-i18n="botLimitLabel">Лимит</span>
-                    <strong data-i18n="botLimitValue">6 ключей на пользователя</strong>
-                  </div>
-                  <div class="meta-item">
-                    <span data-i18n="botStorageLabel">База</span>
-                    <strong>SQLite</strong>
-                  </div>
-                </div>
-              </section>
-            </div>
-
-            <div class="console-layout console-layout--lower">
-              <section class="section-card" aria-label="Recent clients">
-                <div class="section-head">
-                  <div>
-                    <h2 class="section-title" data-i18n="clientsTitle">Последние клиенты</h2>
-                    <p class="section-subtitle" data-i18n="clientsSubtitle">
-                      Пример того, как будут выглядеть ключи пользователей.
-                    </p>
-                  </div>
-                </div>
-                <div class="table-head">
-                  <span data-i18n="tableClient">Клиент</span>
-                  <span data-i18n="tableProtocol">Протокол</span>
-                  <span data-i18n="tableDelivery">Выдача</span>
-                  <span data-i18n="tableStatus">Статус</span>
-                </div>
-                <div class="client-row">
-                  <div class="row-title">tg_1453136053_1</div>
-                  <div class="row-muted">AWG 2.0</div>
-                  <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
-                  <div class="row-title" data-i18n="serverOnline">Онлайн</div>
-                </div>
-                <div class="client-row">
-                  <div class="row-title">tg_1453136053_2</div>
-                  <div class="row-muted">WG 2.0</div>
-                  <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
-                  <div class="row-title" data-i18n="serverOnline">Онлайн</div>
-                </div>
-                <div class="client-row">
-                  <div class="row-title">tg_254453_1</div>
-                  <div class="row-muted">VLESS</div>
-                  <div class="row-muted" data-i18n="deliveryLink">Ссылка</div>
-                  <div class="row-title" data-i18n="serverOnline">Онлайн</div>
-                </div>
-              </section>
-
-              <section class="section-card" aria-label="Activity">
-                <div class="section-head">
-                  <div>
-                    <h2 class="section-title" data-i18n="activityTitle">Последние действия</h2>
-                    <p class="section-subtitle" data-i18n="activitySubtitle">
-                      Что видит админ без захода на сервер.
-                    </p>
-                  </div>
-                </div>
-                <div class="audit-row">
-                  <div class="row-muted">18:09</div>
-                  <div>
-                    <div class="row-title" data-i18n="auditCreated">Создан дополнительный ключ</div>
-                    <div class="row-subtitle">tg_1453136053_2</div>
-                  </div>
-                </div>
-                <div class="audit-row">
-                  <div class="row-muted">18:07</div>
-                  <div>
-                    <div class="row-title" data-i18n="auditVless">Выдана VLESS-ссылка</div>
-                    <div class="row-subtitle" data-i18n="auditNoConfig">Без txt-файла, сразу сообщением</div>
-                  </div>
-                </div>
-                <div class="audit-row">
-                  <div class="row-muted">18:05</div>
-                  <div>
-                    <div class="row-title" data-i18n="auditStart">Первый /start обработан</div>
-                    <div class="row-subtitle" data-i18n="auditStartSub">Дубликат клиента не создан</div>
-                  </div>
-                </div>
-              </section>
             </div>
           </section>
         </main>
@@ -1003,6 +1132,12 @@
           consoleTitle: "StratiX Console",
           consoleSubtitle: "Управление VPN-доступом и ботом",
           logoutButton: "Выйти",
+          navOverview: "Обзор",
+          navServers: "Серверы",
+          navClients: "Клиенты",
+          navBot: "Бот",
+          navLogs: "Журнал",
+          sidebarFoot: "Preview без подключения к приватному серверу.",
           cardUsersLabel: "Пользователи",
           cardUsersText: "Клиенты получают ключи через Telegram.",
           cardKeysLabel: "Активные ключи",
@@ -1051,6 +1186,12 @@
           consoleTitle: "StratiX Console",
           consoleSubtitle: "VPN access and bot control",
           logoutButton: "Log out",
+          navOverview: "Overview",
+          navServers: "Servers",
+          navClients: "Clients",
+          navBot: "Bot",
+          navLogs: "Logs",
+          sidebarFoot: "Preview without private server access.",
           cardUsersLabel: "Users",
           cardUsersText: "Clients receive keys through Telegram.",
           cardKeysLabel: "Active keys",
