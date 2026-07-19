@@ -176,25 +176,6 @@
         backdrop-filter: blur(18px);
       }
 
-      .settings-button {
-        position: absolute;
-        top: 22px;
-        right: 22px;
-        display: grid;
-        width: 38px;
-        height: 38px;
-        place-items: center;
-        border: 1px solid rgba(21, 168, 149, 0.38);
-        border-radius: 999px;
-        background: rgba(21, 168, 149, 0.12);
-        color: var(--accent);
-      }
-
-      .settings-button svg {
-        width: 18px;
-        height: 18px;
-      }
-
       .card-mark {
         width: 46px;
         height: 46px;
@@ -299,38 +280,10 @@
       }
 
       .submit:focus-visible,
-      .settings-button:focus-visible,
       .language-button:focus-visible,
       .eye-button:focus-visible {
         outline: 3px solid var(--focus);
         outline-offset: 2px;
-      }
-
-      .toast {
-        position: fixed;
-        right: 22px;
-        bottom: 22px;
-        z-index: 10;
-        max-width: min(360px, calc(100vw - 44px));
-        padding: 13px 15px;
-        border: 1px solid var(--line-strong);
-        border-radius: var(--radius);
-        background: #192536;
-        color: var(--text);
-        box-shadow: var(--shadow);
-        font-size: 14px;
-        font-weight: 700;
-        opacity: 0;
-        transform: translateY(12px);
-        transition:
-          opacity 0.18s ease,
-          transform 0.18s ease;
-        pointer-events: none;
-      }
-
-      .toast.is-visible {
-        opacity: 1;
-        transform: translateY(0);
       }
 
       @media (max-width: 560px) {
@@ -370,22 +323,6 @@
 
         <main class="preview-stage">
           <section class="login-card" aria-label="Login preview">
-            <button class="settings-button" type="button" aria-label="Settings" data-demo-button>
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path
-                  d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                />
-                <path
-                  d="M19.2 13.2v-2.4l-2.1-.4a6.7 6.7 0 0 0-.8-1.9l1.2-1.8-1.7-1.7-1.8 1.2c-.6-.3-1.2-.6-1.9-.8L11.7 3H9.3l-.4 2.1c-.7.2-1.3.4-1.9.8L5.2 4.7 3.5 6.4l1.2 1.8c-.3.6-.6 1.2-.8 1.9l-2.1.4v2.4l2.1.4c.2.7.4 1.3.8 1.9L3.5 17l1.7 1.7 1.8-1.2c.6.3 1.2.6 1.9.8l.4 2.1h2.4l.4-2.1c.7-.2 1.3-.4 1.9-.8l1.8 1.2 1.7-1.7-1.2-1.8c.3-.6.6-1.2.8-1.9l2.1-.1Z"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-
             <span class="card-mark">SX</span>
             <h1 class="card-title" data-i18n="loginTitle">Вход</h1>
             <p class="card-subtitle" data-i18n="loginSubtitle">Доступ только для администратора</p>
@@ -434,8 +371,6 @@
       </div>
     </div>
 
-    <div class="toast" role="status" aria-live="polite" data-toast></div>
-
     <script>
       const dictionary = {
         ru: {
@@ -443,24 +378,20 @@
           loginSubtitle: "Доступ только для администратора",
           username: "Логин",
           password: "Пароль",
-          loginButton: "Войти",
-          demoToast: "Это preview. Настоящая панель открывается через SSH-туннель."
+          loginButton: "Войти"
         },
         en: {
           loginTitle: "Sign in",
           loginSubtitle: "Administrator access only",
           username: "Username",
           password: "Password",
-          loginButton: "Log in",
-          demoToast: "This is a preview. The real panel opens through an SSH tunnel."
+          loginButton: "Log in"
         }
       };
 
       const state = {
         language: localStorage.getItem("stratix-preview-language") || "ru"
       };
-
-      const toast = document.querySelector("[data-toast]");
 
       function translate() {
         const copy = dictionary[state.language];
@@ -478,13 +409,6 @@
         });
       }
 
-      function showToast(message) {
-        toast.textContent = message;
-        toast.classList.add("is-visible");
-        window.clearTimeout(showToast.timer);
-        showToast.timer = window.setTimeout(() => toast.classList.remove("is-visible"), 2600);
-      }
-
       document.querySelectorAll("[data-language]").forEach((button) => {
         button.addEventListener("click", () => {
           state.language = button.dataset.language;
@@ -500,14 +424,8 @@
         input.toggleAttribute("data-password-visible", !isVisible);
       });
 
-      document.querySelectorAll("[data-demo-button], .form").forEach((element) => {
-        element.addEventListener("click", (event) => {
-          if (element.classList.contains("form") && event.target.tagName !== "BUTTON") {
-            return;
-          }
-          event.preventDefault();
-          showToast(dictionary[state.language].demoToast);
-        });
+      document.querySelector(".form").addEventListener("submit", (event) => {
+        event.preventDefault();
       });
 
       translate();
