@@ -371,7 +371,7 @@
       }
 
       .console-panel {
-        width: min(100%, 820px);
+        width: min(100%, 1080px);
         padding: 28px;
         border: 1px solid var(--line-strong);
         border-radius: var(--radius);
@@ -422,7 +422,7 @@
 
       .dashboard-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 12px;
         margin-top: 22px;
       }
@@ -456,6 +456,175 @@
         color: var(--muted);
         font-size: 13px;
         line-height: 1.45;
+      }
+
+      .dashboard-card strong.small-value {
+        font-size: 20px;
+      }
+
+      .console-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.9fr);
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .console-layout--lower {
+        grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      }
+
+      .section-card {
+        min-width: 0;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.038);
+      }
+
+      .section-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+
+      .section-title {
+        margin: 0;
+        color: var(--text);
+        font-size: 16px;
+        font-weight: 850;
+      }
+
+      .section-subtitle {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .state-pill {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 30px;
+        padding: 0 10px;
+        border: 1px solid rgba(var(--accent-rgb), 0.28);
+        border-radius: 999px;
+        background: rgba(var(--accent-rgb), 0.12);
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 850;
+      }
+
+      .state-pill::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--accent);
+        content: "";
+      }
+
+      .server-row,
+      .client-row,
+      .audit-row {
+        display: grid;
+        gap: 12px;
+        padding: 13px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .server-row {
+        grid-template-columns: minmax(150px, 1fr) minmax(180px, 1.25fr) minmax(92px, 0.6fr);
+        align-items: center;
+      }
+
+      .client-row {
+        grid-template-columns: minmax(130px, 1fr) minmax(88px, 0.55fr) minmax(120px, 0.75fr) minmax(105px, 0.65fr);
+        align-items: center;
+      }
+
+      .audit-row {
+        grid-template-columns: 62px minmax(0, 1fr);
+      }
+
+      .row-title {
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 850;
+      }
+
+      .row-subtitle,
+      .row-muted {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .row-subtitle {
+        margin-top: 4px;
+      }
+
+      .badge-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .protocol-badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 0 9px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .meta-item {
+        min-height: 76px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: calc(var(--radius) - 2px);
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .meta-item span {
+        display: block;
+        color: var(--dim);
+        font-size: 11px;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .meta-item strong {
+        display: block;
+        margin-top: 8px;
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1.3;
+      }
+
+      .table-head {
+        display: grid;
+        grid-template-columns: minmax(130px, 1fr) minmax(88px, 0.55fr) minmax(120px, 0.75fr) minmax(105px, 0.65fr);
+        gap: 12px;
+        padding: 0 0 10px;
+        color: var(--dim);
+        font-size: 11px;
+        font-weight: 850;
+        text-transform: uppercase;
       }
 
       .status-line {
@@ -525,6 +694,19 @@
 
         .dashboard-grid {
           grid-template-columns: 1fr;
+        }
+
+        .console-layout,
+        .console-layout--lower,
+        .server-row,
+        .client-row,
+        .table-head,
+        .meta-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .table-head {
+          display: none;
         }
       }
     </style>
@@ -659,15 +841,150 @@
                 <p data-i18n="cardUsersText">Клиенты получают ключи через Telegram.</p>
               </article>
               <article class="dashboard-card">
+                <span data-i18n="cardKeysLabel">Активные ключи</span>
+                <strong>18</strong>
+                <p data-i18n="cardKeysText">AWG/WG конфиги и VLESS-ссылки выданы.</p>
+              </article>
+              <article class="dashboard-card">
                 <span data-i18n="cardProtocolsLabel">Протоколы</span>
-                <strong>AWG / WG / VLESS</strong>
-                <p data-i18n="cardProtocolsText">Выдача конфигов и ссылок включена.</p>
+                <strong class="small-value">AWG 2 / WG 2</strong>
+                <p data-i18n="cardProtocolsText">Плюс VLESS как ссылка для клиента.</p>
               </article>
               <article class="dashboard-card">
                 <span data-i18n="cardStatusLabel">Статус</span>
                 <strong class="status-line" data-i18n="cardStatusValue">Онлайн</strong>
                 <p data-i18n="cardStatusText">Панель готова к проверке.</p>
               </article>
+            </div>
+
+            <div class="console-layout">
+              <section class="section-card" aria-label="Servers">
+                <div class="section-head">
+                  <div>
+                    <h2 class="section-title" data-i18n="serversTitle">Серверы и протоколы</h2>
+                    <p class="section-subtitle" data-i18n="serversSubtitle">
+                      Один VPS, приватная админка и публичная выдача ключей через бота.
+                    </p>
+                  </div>
+                  <span class="state-pill" data-i18n="stateReady">Готово</span>
+                </div>
+
+                <div class="server-row">
+                  <div>
+                    <div class="row-title" data-i18n="serverPrimaryName">Germany 1</div>
+                    <div class="row-subtitle">45.144.220.86</div>
+                  </div>
+                  <div class="badge-list" aria-label="Protocols">
+                    <span class="protocol-badge">AWG 2.0</span>
+                    <span class="protocol-badge">WG 2.0</span>
+                    <span class="protocol-badge">VLESS TCP</span>
+                  </div>
+                  <div>
+                    <div class="row-title" data-i18n="serverOnline">Онлайн</div>
+                    <div class="row-subtitle">systemd</div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="section-card" aria-label="Telegram bot">
+                <div class="section-head">
+                  <div>
+                    <h2 class="section-title" data-i18n="botTitle">Telegram-бот</h2>
+                    <p class="section-subtitle" data-i18n="botSubtitle">
+                      Создаёт ключи и отдаёт конфиг без ручной выдачи.
+                    </p>
+                  </div>
+                  <span class="state-pill" data-i18n="botOnline">Онлайн</span>
+                </div>
+
+                <div class="meta-grid">
+                  <div class="meta-item">
+                    <span data-i18n="botUsernameLabel">Бот</span>
+                    <strong>@StratiXVPNbot</strong>
+                  </div>
+                  <div class="meta-item">
+                    <span data-i18n="botModeLabel">Режим</span>
+                    <strong>Long polling</strong>
+                  </div>
+                  <div class="meta-item">
+                    <span data-i18n="botLimitLabel">Лимит</span>
+                    <strong data-i18n="botLimitValue">6 ключей на пользователя</strong>
+                  </div>
+                  <div class="meta-item">
+                    <span data-i18n="botStorageLabel">База</span>
+                    <strong>SQLite</strong>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div class="console-layout console-layout--lower">
+              <section class="section-card" aria-label="Recent clients">
+                <div class="section-head">
+                  <div>
+                    <h2 class="section-title" data-i18n="clientsTitle">Последние клиенты</h2>
+                    <p class="section-subtitle" data-i18n="clientsSubtitle">
+                      Пример того, как будут выглядеть ключи пользователей.
+                    </p>
+                  </div>
+                </div>
+                <div class="table-head">
+                  <span data-i18n="tableClient">Клиент</span>
+                  <span data-i18n="tableProtocol">Протокол</span>
+                  <span data-i18n="tableDelivery">Выдача</span>
+                  <span data-i18n="tableStatus">Статус</span>
+                </div>
+                <div class="client-row">
+                  <div class="row-title">tg_1453136053_1</div>
+                  <div class="row-muted">AWG 2.0</div>
+                  <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
+                  <div class="row-title" data-i18n="serverOnline">Онлайн</div>
+                </div>
+                <div class="client-row">
+                  <div class="row-title">tg_1453136053_2</div>
+                  <div class="row-muted">WG 2.0</div>
+                  <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
+                  <div class="row-title" data-i18n="serverOnline">Онлайн</div>
+                </div>
+                <div class="client-row">
+                  <div class="row-title">tg_254453_1</div>
+                  <div class="row-muted">VLESS</div>
+                  <div class="row-muted" data-i18n="deliveryLink">Ссылка</div>
+                  <div class="row-title" data-i18n="serverOnline">Онлайн</div>
+                </div>
+              </section>
+
+              <section class="section-card" aria-label="Activity">
+                <div class="section-head">
+                  <div>
+                    <h2 class="section-title" data-i18n="activityTitle">Последние действия</h2>
+                    <p class="section-subtitle" data-i18n="activitySubtitle">
+                      Что видит админ без захода на сервер.
+                    </p>
+                  </div>
+                </div>
+                <div class="audit-row">
+                  <div class="row-muted">18:09</div>
+                  <div>
+                    <div class="row-title" data-i18n="auditCreated">Создан дополнительный ключ</div>
+                    <div class="row-subtitle">tg_1453136053_2</div>
+                  </div>
+                </div>
+                <div class="audit-row">
+                  <div class="row-muted">18:07</div>
+                  <div>
+                    <div class="row-title" data-i18n="auditVless">Выдана VLESS-ссылка</div>
+                    <div class="row-subtitle" data-i18n="auditNoConfig">Без txt-файла, сразу сообщением</div>
+                  </div>
+                </div>
+                <div class="audit-row">
+                  <div class="row-muted">18:05</div>
+                  <div>
+                    <div class="row-title" data-i18n="auditStart">Первый /start обработан</div>
+                    <div class="row-subtitle" data-i18n="auditStartSub">Дубликат клиента не создан</div>
+                  </div>
+                </div>
+              </section>
             </div>
           </section>
         </main>
@@ -688,11 +1005,41 @@
           logoutButton: "Выйти",
           cardUsersLabel: "Пользователи",
           cardUsersText: "Клиенты получают ключи через Telegram.",
+          cardKeysLabel: "Активные ключи",
+          cardKeysText: "AWG/WG конфиги и VLESS-ссылки выданы.",
           cardProtocolsLabel: "Протоколы",
-          cardProtocolsText: "Выдача конфигов и ссылок включена.",
+          cardProtocolsText: "Плюс VLESS как ссылка для клиента.",
           cardStatusLabel: "Статус",
           cardStatusValue: "Онлайн",
-          cardStatusText: "Панель готова к проверке."
+          cardStatusText: "Панель готова к проверке.",
+          serversTitle: "Серверы и протоколы",
+          serversSubtitle: "Один VPS, приватная админка и публичная выдача ключей через бота.",
+          stateReady: "Готово",
+          serverPrimaryName: "Germany 1",
+          serverOnline: "Онлайн",
+          botTitle: "Telegram-бот",
+          botSubtitle: "Создаёт ключи и отдаёт конфиг без ручной выдачи.",
+          botOnline: "Онлайн",
+          botUsernameLabel: "Бот",
+          botModeLabel: "Режим",
+          botLimitLabel: "Лимит",
+          botLimitValue: "6 ключей на пользователя",
+          botStorageLabel: "База",
+          clientsTitle: "Последние клиенты",
+          clientsSubtitle: "Пример того, как будут выглядеть ключи пользователей.",
+          tableClient: "Клиент",
+          tableProtocol: "Протокол",
+          tableDelivery: "Выдача",
+          tableStatus: "Статус",
+          deliveryConfQr: ".conf + QR",
+          deliveryLink: "Ссылка",
+          activityTitle: "Последние действия",
+          activitySubtitle: "Что видит админ без захода на сервер.",
+          auditCreated: "Создан дополнительный ключ",
+          auditVless: "Выдана VLESS-ссылка",
+          auditNoConfig: "Без txt-файла, сразу сообщением",
+          auditStart: "Первый /start обработан",
+          auditStartSub: "Дубликат клиента не создан"
         },
         en: {
           loginTitle: "Sign in",
@@ -706,11 +1053,41 @@
           logoutButton: "Log out",
           cardUsersLabel: "Users",
           cardUsersText: "Clients receive keys through Telegram.",
+          cardKeysLabel: "Active keys",
+          cardKeysText: "AWG/WG configs and VLESS links are issued.",
           cardProtocolsLabel: "Protocols",
-          cardProtocolsText: "Config and link delivery is enabled.",
+          cardProtocolsText: "Plus VLESS as a client-ready link.",
           cardStatusLabel: "Status",
           cardStatusValue: "Online",
-          cardStatusText: "Panel is ready for review."
+          cardStatusText: "Panel is ready for review.",
+          serversTitle: "Servers and protocols",
+          serversSubtitle: "One VPS, private admin panel, and public key delivery through the bot.",
+          stateReady: "Ready",
+          serverPrimaryName: "Germany 1",
+          serverOnline: "Online",
+          botTitle: "Telegram bot",
+          botSubtitle: "Creates keys and sends configs without manual delivery.",
+          botOnline: "Online",
+          botUsernameLabel: "Bot",
+          botModeLabel: "Mode",
+          botLimitLabel: "Limit",
+          botLimitValue: "6 keys per user",
+          botStorageLabel: "Storage",
+          clientsTitle: "Recent clients",
+          clientsSubtitle: "Example of how user keys will look in the panel.",
+          tableClient: "Client",
+          tableProtocol: "Protocol",
+          tableDelivery: "Delivery",
+          tableStatus: "Status",
+          deliveryConfQr: ".conf + QR",
+          deliveryLink: "Link",
+          activityTitle: "Recent activity",
+          activitySubtitle: "What the admin sees without opening the server.",
+          auditCreated: "Additional key created",
+          auditVless: "VLESS link issued",
+          auditNoConfig: "No txt file, sent directly as a message",
+          auditStart: "First /start handled",
+          auditStartSub: "Duplicate client was not created"
         }
       };
 
