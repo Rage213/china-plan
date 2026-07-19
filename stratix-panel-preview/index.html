@@ -387,77 +387,8 @@
       }
 
       .operator-console {
-        display: grid;
-        grid-template-columns: 218px minmax(0, 1fr);
-        min-height: 672px;
-      }
-
-      .console-sidebar {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        padding: 18px 14px;
-        border-right: 1px solid var(--line);
-        background: rgba(0, 0, 0, 0.14);
-      }
-
-      .sidebar-brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 4px 4px 12px;
-        border-bottom: 1px solid var(--line);
-        color: var(--text);
-        font-size: 15px;
-        font-weight: 850;
-      }
-
-      .sidebar-brand .card-mark {
-        width: 34px;
-        height: 34px;
-        font-size: 11px;
-      }
-
-      .sidebar-nav {
-        display: grid;
-        gap: 5px;
-      }
-
-      .sidebar-link {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 34px;
-        padding: 0 10px;
-        border-radius: 7px;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 750;
-      }
-
-      .sidebar-link.is-active {
-        background: rgba(var(--accent-rgb), 0.13);
-        color: var(--text);
-      }
-
-      .sidebar-count {
-        min-width: 24px;
-        padding: 2px 7px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-        color: var(--text);
-        font-size: 11px;
-        text-align: center;
-      }
-
-      .sidebar-foot {
-        margin-top: auto;
-        padding: 12px 10px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.45;
+        display: block;
+        min-height: auto;
       }
 
       .workbench {
@@ -805,7 +736,6 @@
 
         .console-layout,
         .console-layout--lower,
-        .operator-console,
         .server-row,
         .client-row,
         .table-head,
@@ -814,10 +744,6 @@
         }
 
         .table-head {
-          display: none;
-        }
-
-        .console-sidebar {
           display: none;
         }
 
@@ -936,38 +862,6 @@
         <main class="dashboard-stage is-hidden" data-dashboard-screen>
           <section class="console-panel" aria-label="StratiX console">
             <div class="operator-console">
-              <aside class="console-sidebar" aria-label="Console navigation">
-                <div class="sidebar-brand">
-                  <span class="card-mark">SX</span>
-                  <span>StratiX</span>
-                </div>
-                <nav class="sidebar-nav" aria-label="Preview sections">
-                  <div class="sidebar-link is-active">
-                    <span data-i18n="navOverview">Обзор</span>
-                    <span class="sidebar-count">4</span>
-                  </div>
-                  <div class="sidebar-link">
-                    <span data-i18n="navServers">Серверы</span>
-                    <span class="sidebar-count">1</span>
-                  </div>
-                  <div class="sidebar-link">
-                    <span data-i18n="navClients">Клиенты</span>
-                    <span class="sidebar-count">18</span>
-                  </div>
-                  <div class="sidebar-link">
-                    <span data-i18n="navBot">Бот</span>
-                    <span class="sidebar-count">on</span>
-                  </div>
-                  <div class="sidebar-link">
-                    <span data-i18n="navLogs">Журнал</span>
-                    <span class="sidebar-count">3</span>
-                  </div>
-                </nav>
-                <div class="sidebar-foot" data-i18n="sidebarFoot">
-                  Preview без подключения к приватному серверу.
-                </div>
-              </aside>
-
               <div class="workbench">
                 <div class="console-top">
                   <div class="console-heading">
@@ -987,17 +881,17 @@
                 <div class="dashboard-grid">
                   <article class="dashboard-card">
                     <span data-i18n="cardUsersLabel">Пользователи</span>
-                    <strong>12</strong>
+                    <strong>2</strong>
                     <p data-i18n="cardUsersText">Клиенты получают ключи через Telegram.</p>
                   </article>
                   <article class="dashboard-card">
                     <span data-i18n="cardKeysLabel">Активные ключи</span>
-                    <strong>18</strong>
+                    <strong>6</strong>
                     <p data-i18n="cardKeysText">AWG/WG конфиги и VLESS-ссылки выданы.</p>
                   </article>
                   <article class="dashboard-card">
                     <span data-i18n="cardProtocolsLabel">Протоколы</span>
-                    <strong class="small-value">AWG 2 / WG 2</strong>
+                    <strong class="small-value">AWG / VLESS</strong>
                     <p data-i18n="cardProtocolsText">Плюс VLESS как ссылка для клиента.</p>
                   </article>
                   <article class="dashboard-card">
@@ -1017,11 +911,10 @@
                     </div>
 
                     <div class="server-row">
-                      <div class="row-title" data-i18n="serverPrimaryName">Germany 1</div>
+                      <div class="row-title" data-i18n="serverPrimaryName">RU Server 1</div>
                       <div class="row-muted">45.144.220.86</div>
                       <div class="badge-list" aria-label="Protocols">
                         <span class="protocol-badge">AWG 2.0</span>
-                        <span class="protocol-badge">WG 2.0</span>
                         <span class="protocol-badge">VLESS TCP</span>
                       </div>
                       <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
@@ -1039,7 +932,7 @@
                     <div class="meta-grid">
                       <div class="meta-item">
                         <span data-i18n="botUsernameLabel">Бот</span>
-                        <strong>@StratiXVPNbot</strong>
+                        <strong>@StratixVPNbot</strong>
                       </div>
                       <div class="meta-item">
                         <span data-i18n="botModeLabel">Режим</span>
@@ -1071,21 +964,39 @@
                       <span data-i18n="tableStatus">Статус</span>
                     </div>
                     <div class="client-row">
+                      <div class="row-title">tg_1453136053_2</div>
+                      <div class="row-muted">VLESS</div>
+                      <div class="row-muted" data-i18n="deliveryLink">Ссылка</div>
+                      <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
+                    </div>
+                    <div class="client-row">
                       <div class="row-title">tg_1453136053_1</div>
-                      <div class="row-muted">AWG 2.0</div>
+                      <div class="row-muted">VLESS</div>
+                      <div class="row-muted" data-i18n="deliveryLink">Ссылка</div>
+                      <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
+                    </div>
+                    <div class="client-row">
+                      <div class="row-title">tg_254453_4</div>
+                      <div class="row-muted">AWG</div>
                       <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
                       <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
                     </div>
                     <div class="client-row">
-                      <div class="row-title">tg_1453136053_2</div>
-                      <div class="row-muted">WG 2.0</div>
+                      <div class="row-title">tg_254453_3</div>
+                      <div class="row-muted">AWG</div>
+                      <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
+                      <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
+                    </div>
+                    <div class="client-row">
+                      <div class="row-title">tg_254453_2</div>
+                      <div class="row-muted">AWG</div>
                       <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
                       <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
                     </div>
                     <div class="client-row">
                       <div class="row-title">tg_254453_1</div>
-                      <div class="row-muted">VLESS</div>
-                      <div class="row-muted" data-i18n="deliveryLink">Ссылка</div>
+                      <div class="row-muted">AWG</div>
+                      <div class="row-muted" data-i18n="deliveryConfQr">.conf + QR</div>
                       <span class="status-chip" data-i18n="serverOnline">Онлайн</span>
                     </div>
                   </section>
@@ -1097,19 +1008,19 @@
                       </div>
                     </div>
                     <div class="audit-row">
-                      <div class="row-muted">18:09</div>
+                      <div class="row-muted">13:34</div>
                       <div class="row-title" data-i18n="auditCreated">Создан дополнительный ключ</div>
                       <div class="row-muted">tg_1453136053_2</div>
                     </div>
                     <div class="audit-row">
-                      <div class="row-muted">18:07</div>
+                      <div class="row-muted">13:09</div>
                       <div class="row-title" data-i18n="auditVless">Выдана VLESS-ссылка</div>
-                      <div class="row-muted" data-i18n="deliveryLink">Ссылка</div>
+                      <div class="row-muted">tg_1453136053_1</div>
                     </div>
                     <div class="audit-row">
-                      <div class="row-muted">18:05</div>
-                      <div class="row-title" data-i18n="auditStart">Первый /start обработан</div>
-                      <div class="row-muted" data-i18n="stateReady">Готово</div>
+                      <div class="row-muted">07:05</div>
+                      <div class="row-title" data-i18n="auditAwg">Создан AWG-ключ</div>
+                      <div class="row-muted">tg_254453_4</div>
                     </div>
                   </section>
                 </div>
@@ -1132,25 +1043,19 @@
           consoleTitle: "StratiX Console",
           consoleSubtitle: "Управление VPN-доступом и ботом",
           logoutButton: "Выйти",
-          navOverview: "Обзор",
-          navServers: "Серверы",
-          navClients: "Клиенты",
-          navBot: "Бот",
-          navLogs: "Журнал",
-          sidebarFoot: "Preview без подключения к приватному серверу.",
           cardUsersLabel: "Пользователи",
           cardUsersText: "Клиенты получают ключи через Telegram.",
           cardKeysLabel: "Активные ключи",
-          cardKeysText: "AWG/WG конфиги и VLESS-ссылки выданы.",
+          cardKeysText: "AWG-конфиги и VLESS-ссылки выданы.",
           cardProtocolsLabel: "Протоколы",
-          cardProtocolsText: "Плюс VLESS как ссылка для клиента.",
+          cardProtocolsText: "AWG-конфиги и VLESS как ссылка для клиента.",
           cardStatusLabel: "Статус",
           cardStatusValue: "Онлайн",
           cardStatusText: "Панель готова к проверке.",
           serversTitle: "Серверы и протоколы",
           serversSubtitle: "Один VPS, приватная админка и публичная выдача ключей через бота.",
           stateReady: "Готово",
-          serverPrimaryName: "Germany 1",
+          serverPrimaryName: "RU Server 1",
           serverOnline: "Онлайн",
           botTitle: "Telegram-бот",
           botSubtitle: "Создаёт ключи и отдаёт конфиг без ручной выдачи.",
@@ -1172,6 +1077,7 @@
           activitySubtitle: "Что видит админ без захода на сервер.",
           auditCreated: "Создан дополнительный ключ",
           auditVless: "Выдана VLESS-ссылка",
+          auditAwg: "Создан AWG-ключ",
           auditNoConfig: "Без txt-файла, сразу сообщением",
           auditStart: "Первый /start обработан",
           auditStartSub: "Дубликат клиента не создан"
@@ -1186,25 +1092,19 @@
           consoleTitle: "StratiX Console",
           consoleSubtitle: "VPN access and bot control",
           logoutButton: "Log out",
-          navOverview: "Overview",
-          navServers: "Servers",
-          navClients: "Clients",
-          navBot: "Bot",
-          navLogs: "Logs",
-          sidebarFoot: "Preview without private server access.",
           cardUsersLabel: "Users",
           cardUsersText: "Clients receive keys through Telegram.",
           cardKeysLabel: "Active keys",
-          cardKeysText: "AWG/WG configs and VLESS links are issued.",
+          cardKeysText: "AWG configs and VLESS links are issued.",
           cardProtocolsLabel: "Protocols",
-          cardProtocolsText: "Plus VLESS as a client-ready link.",
+          cardProtocolsText: "AWG configs and VLESS client-ready links.",
           cardStatusLabel: "Status",
           cardStatusValue: "Online",
           cardStatusText: "Panel is ready for review.",
           serversTitle: "Servers and protocols",
           serversSubtitle: "One VPS, private admin panel, and public key delivery through the bot.",
           stateReady: "Ready",
-          serverPrimaryName: "Germany 1",
+          serverPrimaryName: "RU Server 1",
           serverOnline: "Online",
           botTitle: "Telegram bot",
           botSubtitle: "Creates keys and sends configs without manual delivery.",
@@ -1226,6 +1126,7 @@
           activitySubtitle: "What the admin sees without opening the server.",
           auditCreated: "Additional key created",
           auditVless: "VLESS link issued",
+          auditAwg: "AWG key created",
           auditNoConfig: "No txt file, sent directly as a message",
           auditStart: "First /start handled",
           auditStartSub: "Duplicate client was not created"
