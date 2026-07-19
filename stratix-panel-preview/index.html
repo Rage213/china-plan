@@ -24,10 +24,49 @@
         --dim: rgba(245, 247, 251, 0.46);
         --accent: #15a895;
         --accent-strong: #0a796d;
-        --focus: rgba(21, 168, 149, 0.22);
+        --accent-rgb: 21, 168, 149;
+        --glow-a-rgb: 98, 102, 217;
+        --glow-b-rgb: 21, 168, 149;
+        --focus: rgba(var(--accent-rgb), 0.22);
         --shadow: 0 34px 95px rgba(0, 0, 0, 0.34);
         --soft-shadow: 0 14px 42px rgba(0, 0, 0, 0.24);
         --radius: 8px;
+      }
+
+      body[data-theme="violet"] {
+        --bg: #100f24;
+        --bg-2: #251f3e;
+        --surface: rgba(31, 28, 55, 0.9);
+        --surface-muted: rgba(255, 255, 255, 0.07);
+        --accent: #8b7cf6;
+        --accent-strong: #5e50c9;
+        --accent-rgb: 139, 124, 246;
+        --glow-a-rgb: 139, 124, 246;
+        --glow-b-rgb: 34, 211, 238;
+      }
+
+      body[data-theme="amber"] {
+        --bg: #17120c;
+        --bg-2: #2b2116;
+        --surface: rgba(43, 32, 21, 0.9);
+        --surface-muted: rgba(255, 255, 255, 0.065);
+        --accent: #f1a638;
+        --accent-strong: #ad6315;
+        --accent-rgb: 241, 166, 56;
+        --glow-a-rgb: 241, 166, 56;
+        --glow-b-rgb: 21, 168, 149;
+      }
+
+      body[data-theme="blue"] {
+        --bg: #071528;
+        --bg-2: #172b47;
+        --surface: rgba(21, 39, 63, 0.9);
+        --surface-muted: rgba(255, 255, 255, 0.065);
+        --accent: #4d9fff;
+        --accent-strong: #276bc4;
+        --accent-rgb: 77, 159, 255;
+        --glow-a-rgb: 77, 159, 255;
+        --glow-b-rgb: 125, 92, 255;
       }
 
       * {
@@ -41,8 +80,8 @@
         background:
           linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-          radial-gradient(circle at 82% 16%, rgba(98, 102, 217, 0.24), transparent 32%),
-          radial-gradient(circle at 14% 82%, rgba(21, 168, 149, 0.22), transparent 30%),
+          radial-gradient(circle at 82% 16%, rgba(var(--glow-a-rgb), 0.24), transparent 32%),
+          radial-gradient(circle at 14% 82%, rgba(var(--glow-b-rgb), 0.22), transparent 30%),
           linear-gradient(180deg, var(--bg), var(--bg-2));
         background-size:
           48px 48px,
@@ -80,8 +119,8 @@
         content: "";
         background:
           linear-gradient(170deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03)),
-          linear-gradient(7deg, transparent 0 43%, rgba(21, 168, 149, 0.24) 44% 49%, transparent 50%),
-          linear-gradient(-6deg, transparent 0 33%, rgba(98, 102, 217, 0.24) 34% 39%, transparent 40%);
+          linear-gradient(7deg, transparent 0 43%, rgba(var(--glow-b-rgb), 0.24) 44% 49%, transparent 50%),
+          linear-gradient(-6deg, transparent 0 33%, rgba(var(--glow-a-rgb), 0.24) 34% 39%, transparent 40%);
         transform: skewY(-3deg);
       }
 
@@ -131,10 +170,44 @@
         font-size: 12px;
       }
 
+      .panel-controls {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .theme-controls,
       .language-controls {
         display: flex;
         align-items: center;
         gap: 8px;
+      }
+
+      .theme-swatch {
+        position: relative;
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background:
+          linear-gradient(135deg, var(--swatch-a), var(--swatch-b));
+        box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.08);
+        padding: 0;
+      }
+
+      .theme-swatch.is-active {
+        border-color: rgba(var(--accent-rgb), 0.74);
+        box-shadow:
+          inset 0 0 0 4px rgba(255, 255, 255, 0.14),
+          0 0 0 3px rgba(var(--accent-rgb), 0.18);
+      }
+
+      .theme-swatch.is-active::after {
+        position: absolute;
+        inset: 10px;
+        border-radius: 999px;
+        background: #fff;
+        content: "";
       }
 
       .language-button {
@@ -153,8 +226,8 @@
       }
 
       .language-button.is-active {
-        border-color: rgba(10, 134, 120, 0.42);
-        background: rgba(21, 168, 149, 0.14);
+        border-color: rgba(var(--accent-rgb), 0.42);
+        background: rgba(var(--accent-rgb), 0.14);
         color: #e3fffb;
       }
 
@@ -239,7 +312,7 @@
       }
 
       .field input:focus {
-        border-color: rgba(10, 134, 120, 0.58);
+        border-color: rgba(var(--accent-rgb), 0.58);
         box-shadow: 0 0 0 3px var(--focus);
       }
 
@@ -276,11 +349,12 @@
         color: #fff;
         font-size: 15px;
         font-weight: 800;
-        box-shadow: 0 16px 34px rgba(21, 168, 149, 0.22);
+        box-shadow: 0 16px 34px rgba(var(--accent-rgb), 0.22);
       }
 
       .submit:focus-visible,
       .language-button:focus-visible,
+      .theme-swatch:focus-visible,
       .eye-button:focus-visible {
         outline: 3px solid var(--focus);
         outline-offset: 2px;
@@ -294,6 +368,21 @@
 
         .brand {
           font-size: 19px;
+        }
+
+        .nav {
+          align-items: flex-start;
+        }
+
+        .panel-controls {
+          align-items: flex-end;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .theme-swatch {
+          width: 32px;
+          height: 32px;
         }
 
         .preview-stage {
@@ -315,9 +404,41 @@
             <span>StratiX VPN</span>
           </a>
 
-          <div class="language-controls" aria-label="Language">
-            <button class="language-button is-active" type="button" data-language="ru">RU</button>
-            <button class="language-button" type="button" data-language="en">EN</button>
+          <div class="panel-controls">
+            <div class="theme-controls" aria-label="Цвет темы">
+              <button
+                class="theme-swatch is-active"
+                type="button"
+                data-theme="ocean"
+                aria-label="Бирюзовая тема"
+                style="--swatch-a: #15a895; --swatch-b: #6266d9"
+              ></button>
+              <button
+                class="theme-swatch"
+                type="button"
+                data-theme="violet"
+                aria-label="Фиолетовая тема"
+                style="--swatch-a: #8b7cf6; --swatch-b: #22d3ee"
+              ></button>
+              <button
+                class="theme-swatch"
+                type="button"
+                data-theme="amber"
+                aria-label="Янтарная тема"
+                style="--swatch-a: #f1a638; --swatch-b: #15a895"
+              ></button>
+              <button
+                class="theme-swatch"
+                type="button"
+                data-theme="blue"
+                aria-label="Синяя тема"
+                style="--swatch-a: #4d9fff; --swatch-b: #7d5cff"
+              ></button>
+            </div>
+            <div class="language-controls" aria-label="Language">
+              <button class="language-button is-active" type="button" data-language="ru">RU</button>
+              <button class="language-button" type="button" data-language="en">EN</button>
+            </div>
           </div>
         </header>
 
@@ -389,8 +510,13 @@
         }
       };
 
+      const availableThemes = ["ocean", "violet", "amber", "blue"];
+
       const state = {
-        language: localStorage.getItem("stratix-preview-language") || "ru"
+        language: localStorage.getItem("stratix-preview-language") || "ru",
+        theme: availableThemes.includes(localStorage.getItem("stratix-preview-theme"))
+          ? localStorage.getItem("stratix-preview-theme")
+          : "ocean"
       };
 
       function translate() {
@@ -409,11 +535,26 @@
         });
       }
 
+      function applyTheme() {
+        document.body.dataset.theme = state.theme;
+        document.querySelectorAll(".theme-swatch[data-theme]").forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.theme === state.theme);
+        });
+        localStorage.setItem("stratix-preview-theme", state.theme);
+      }
+
       document.querySelectorAll("[data-language]").forEach((button) => {
         button.addEventListener("click", () => {
           state.language = button.dataset.language;
           localStorage.setItem("stratix-preview-language", state.language);
           translate();
+        });
+      });
+
+      document.querySelectorAll(".theme-swatch[data-theme]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.theme = button.dataset.theme;
+          applyTheme();
         });
       });
 
@@ -428,6 +569,7 @@
         event.preventDefault();
       });
 
+      applyTheme();
       translate();
     </script>
   </body>
